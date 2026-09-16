@@ -21,6 +21,9 @@ public class habit {
     //List of days
     List<DayStatus> history =new ArrayList<>();;
 
+    //what tab it listed on
+    String tabName;
+
 
 //---------------------------------------------------------------------------------------------------
 
@@ -30,17 +33,7 @@ public class habit {
         name = nameV;
         purpose = purposeV;
     }
-    // call but with day listed, no times tho
-    public habit(String nameV,String purposeV,List<DayOfWeek> daylist) {
-        name = nameV;
-        purpose = purposeV;
-
-        for(DayOfWeek day : daylist) {
-            timesOfWeek.put(day,null);
-        }
-    }
-    //call with everything
-    public habit(String nameV,String purposeV,List<DayOfWeek> daylist,List<LocalTime> timeList) {
+ habit(String nameV,String purposeV,List<DayOfWeek> daylist,List<LocalTime> timeList) {
         name = nameV;
         purpose = purposeV;
 
@@ -51,14 +44,33 @@ public class habit {
 
 
     //way to import old history
-    public void addPreiousHistory(List<DayStatus> oldHistory){
+    public void addPreviousHistory(List<DayStatus> oldHistory){
         history = oldHistory;
     }
 
-    public void addHistory(DayStatus newDay){
+    //add new day
+    public void addDay(DayStatus newDay){
         history.add(newDay);
     }
 
+    //get history - probably need only one day
+    public List<DayStatus> getHistory() {
+        return history;
+    }
+    public DayStatus getDay(LocalDate date){
+
+        for (DayStatus dateFind : history){
+            if (dateFind.getDate() == date) {
+                return dateFind;
+            }
+        }
+        return null;
+    }
+
+    //delete an old day
+    public void deleteHistoryOffDate(LocalDate dateToDelete ){
+        history.removeIf(dayFind -> dayFind.getDate() == dateToDelete);
+    }
 
     // adds to the week array the time
     // to call name.addTime(DayOfWeek.MONDAY, LocalTime.of(8, 30));
@@ -100,14 +112,19 @@ public class habit {
     }
 
     //get the name
-    public String getName()  {return name;}
+    public String getName()  { return name; }
     //get the purpose
-    public String getPurpose() {return purpose;}
+    public String getPurpose() { return purpose; }
 
     //Update the description of habit
-    public void updatePurpose(String newP) {purpose=newP;}
+    public void updatePurpose(String newP) { purpose=newP; }
 
     // set new name, not sure if this is needed. Like make new habit?
-    public void newName(String newNJustMakeANewHabit) {name = newNJustMakeANewHabit;}
+    public void newName(String newNJustMakeANewHabit) { name = newNJustMakeANewHabit; }
 
+    //get which tab
+    public String getTabName() { return tabName; }
+
+    //change tab
+    public void changeTabName(String newTab) { tabName = newTab; }
 }
