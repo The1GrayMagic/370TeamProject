@@ -11,12 +11,12 @@ public class DayStatus {
 
     Map<LocalTime, Boolean> completions = new HashMap<LocalTime, Boolean>();
 
-
     //set up date and times
     public DayStatus(LocalDate d, List<LocalTime> lT) {
         date = d;
         for (LocalTime localTime : lT) {
             completions.put(localTime, false);
+
         }
     }
 
