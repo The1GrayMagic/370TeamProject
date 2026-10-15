@@ -1,4 +1,4 @@
-
+package habitPop.model;
 //imports
 
 import java.util.*;
@@ -7,14 +7,14 @@ import java.time.*;
 
 // class to classify habits
 
-public class habit {
+public class Habit {
 
-    //name of habit
+    //name of Habit
     String name;
-    //description of the habit
+    //description of the Habit
     String purpose;
 
-    // map (day of the week) to a (time of expected time to complete the habit)
+    // map (day of the week) to a (time of expected time to complete the Habit)
     // the list allow use to change time or have more than one
     Map<DayOfWeek, List<LocalTime>> timesOfWeek  = new HashMap<>();
 
@@ -29,11 +29,11 @@ public class habit {
 
 
     // call with just name and description
-    public habit(String nameV,String purposeV) {
+    public Habit(String nameV, String purposeV) {
         name = nameV;
         purpose = purposeV;
     }
- habit(String nameV,String purposeV,List<DayOfWeek> daylist,List<LocalTime> timeList) {
+ Habit(String nameV, String purposeV, List<DayOfWeek> daylist, List<LocalTime> timeList) {
         name = nameV;
         purpose = purposeV;
 
@@ -116,10 +116,10 @@ public class habit {
     //get the purpose
     public String getPurpose() { return purpose; }
 
-    //Update the description of habit
+    //Update the description of Habit
     public void updatePurpose(String newP) { purpose=newP; }
 
-    // set new name, not sure if this is needed. Like make new habit?
+    // set new name, not sure if this is needed. Like make new Habit?
     public void newName(String newNJustMakeANewHabit) { name = newNJustMakeANewHabit; }
 
     //get which tab

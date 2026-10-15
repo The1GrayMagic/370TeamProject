@@ -1,0 +1,4 @@
+ControlsFX — extra JavaFX controls that don’t come standard.
+AtlantaFX — modern themes/styles for JavaFX, makes the app look much better quickly.
+Ikonli — icon packs for buttons/navigation.
+MaterialFX — Material-style controls if you want a more modern app look

@@ -1,0 +1,5 @@
+{"id":1,"timestamp":"2026-10-09T17:31:58.811889Z","level":"info","category":"service","event":"startup","message":"PC Service starting","details":{"host":"0.0.0.0","port":60000}}
+{"id":2,"timestamp":"2026-10-09T17:31:58.814435Z","level":"info","category":"wireguard","event":"initialization_started","message":"Initializing WireGuard"}
+{"id":3,"timestamp":"2026-10-09T17:31:58.814905Z","level":"warn","category":"wireguard","event":"unsupported","message":"WireGuard is not supported on this platform"}
+{"id":4,"timestamp":"2026-10-09T17:31:58.815249Z","level":"info","category":"dns","event":"initialization_started","message":"Initializing local DNS server","details":{"domain":"tiiny.local","listen_address":"127.0.0.1:60053"}}
+{"id":5,"timestamp":"2026-10-09T17:31:58.816224Z","level":"error","category":"dns","event":"initialization_failed","message":"Failed to initialize local DNS server","details":{"error":"failed to start DNS listener on 127.0.0.1:60053: listen udp 127.0.0.1:60053: wsaioctl: winapi error #10045"}}
