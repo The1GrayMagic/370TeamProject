@@ -24,6 +24,9 @@ public class Habit {
     //what tab it listed on
     String tabName;
 
+    //priority level
+    int priority = 0;
+
 
 //---------------------------------------------------------------------------------------------------
 
@@ -33,9 +36,11 @@ public class Habit {
         name = nameV;
         purpose = purposeV;
     }
- Habit(String nameV, String purposeV, List<DayOfWeek> daylist, List<LocalTime> timeList) {
+
+    public Habit(String nameV, String purposeV,int priorityLevel, List<DayOfWeek> daylist, List<LocalTime> timeList) {
         name = nameV;
         purpose = purposeV;
+        priority = priorityLevel;
 
         for (DayOfWeek day : daylist) {
             timesOfWeek.put(day,timeList);
@@ -127,4 +132,8 @@ public class Habit {
 
     //change tab
     public void changeTabName(String newTab) { tabName = newTab; }
+
+    public int getPriority() {
+        return  priority;
+    }
 }
