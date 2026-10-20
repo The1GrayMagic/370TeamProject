@@ -8,6 +8,9 @@ public class Tab {
 
     String name;
 
+    int id = -1; //default no id, used for db management
+
+
     List<Habit> habitList = new ArrayList<>();
 
 
@@ -26,6 +29,14 @@ public class Tab {
 
 
 
+
+
+    public String getName (){ return name; }
+
+    public int getId (){ return id; }
+
+    public void setId (int idInput){ id = idInput; }
+    public void setId (){ id = -1; }
 
 
 

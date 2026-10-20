@@ -2,11 +2,63 @@ package habitPop.model;
 
 
 import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Map;
 
 
 public class HabitDatabase {
 
     private static final String  DATA_LOCATION = "jdbc:sqlite:data/habitpop.db";
+
+    //------------------------------- Habits sql presentment ----------------------------------------
+    private static final String Insert_Habit_Sql = """
+    INSERT INTO habits(name, purpose, priority)
+    VALUES (?, ?, ?)
+    """;
+
+    private static final String Update_Habit_Sql = """
+    UPDATE habits
+    SET name = ?, purpose = ?, priority = ?
+    WHERE id = ?
+    """;
+
+    private static final String Delete_Habit_Sql = """
+    DELETE FROM habits
+    WHERE id = ?
+    """;
+
+    private static final String Select_Habit_Sql = """
+    SELECT id, name, purpose, priority
+    FROM habits
+    WHERE id = ?
+    """;
+
+    //------------------------------------- History sql presentment ---------------------------------------------
+    private static final String Insert_History_Sql = """
+    INSERT INTO history(habit_id, date, time, completed)
+    VALUES (?, ?, ?, ?)
+    """;
+
+    //------------------------------------- DaysOfTheWeek sql presentment ---------------------------------------------
+    private static final String Insert_DaysOfWeek_Sql = """
+    INSERT INTO history(habit_id, date, time)
+    VALUES (?, ?, ?)
+    """;
+
+    //------------------------------------- Tab sql presentment ---------------------------------------------
+    // this just create the tab in the db
+    private static final String Insert_tab_Sql = """
+    INSERT INTO history(name)
+    VALUES (?)
+    """;
+
+    //this associate the relations of tab to habit,     many to many
+    private static final String Insert_Tab_Habit_Sql = """
+    INSERT INTO habit_tabs(habit_id, tab_id)
+    VALUES (?, ?)
+    """;
 
 
 
@@ -44,15 +96,25 @@ public class HabitDatabase {
 
     // inputting data into db is different from just the habit object. sqlite is base on relational types, this allows easier searches
     public void addHabit(Habit habit) throws SQLException {
-        String sql = """
-        INSERT INTO habits(name, purpose, priority)
-        VALUES (?, ?, ?)
-        """; // this will get an id in db, this id will be used to identify it connection parts, its history, ect/
+        int id = insertHabit(habit);
+        insertHistory(habit.getHistory(), id);
+        insertDaysOfWeeks(habit.timesOfWeek, id);
+    }
 
+    public void addTab(Tab tab) throws SQLException {
+
+
+
+
+
+    }
+
+
+    private int insertHabit(Habit habit){
         try (
                 Connection connection = connectToDB();
                 PreparedStatement statement =
-                        connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS )
+                        connection.prepareStatement(Insert_Habit_Sql, Statement.RETURN_GENERATED_KEYS )
         ) {
 
             statement.setString(1, habit.getName());
@@ -63,20 +125,173 @@ public class HabitDatabase {
 
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-
-            if (generatedKeys.next()) {
-                int habitId = generatedKeys.getInt(1);
-                System.out.println("New habit ID: " + habitId);
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int habitId = generatedKeys.getInt(1);
+                    return habitId;
+                }
             }
 
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return -1;
+    }
+
+    private boolean insertHistory(List<DayStatus> history, int habitId){
+        try (
+                Connection connection = connectToDB();
+                PreparedStatement statement =
+                        connection.prepareStatement(Insert_History_Sql )
+        ) {
+
+            for (DayStatus dayStatus : history) {
+
+                for (Map.Entry<LocalTime, Boolean> entry
+                        : dayStatus.getCompletions().entrySet()) {
+
+                    statement.setInt(1, habitId);
+                    statement.setString(2, dayStatus.getDate().toString());
+                    statement.setString(3, entry.getKey().toString());
+                    statement.setBoolean(4, entry.getValue());
+
+                    statement.executeUpdate(); // push to the table in db
+                }
+            }
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+
+    private boolean insertDaysOfWeeks(Map<DayOfWeek, List<LocalTime>> timesOfWeek, int habitId){
+        try (
+                Connection connection = connectToDB();
+                PreparedStatement statement =
+                        connection.prepareStatement(Insert_History_Sql )
+        ) {
+
+
+                for (Map.Entry<DayOfWeek, List<LocalTime>> dayEntry : timesOfWeek.entrySet()) {
+
+                    DayOfWeek day = dayEntry.getKey();
+
+                    for (LocalTime time : dayEntry.getValue()) {
+
+                        statement.setInt(1, habitId);
+                        statement.setString(2, day.toString());
+                        statement.setString(3, time.toString());
+
+                        statement.addBatch(); // set it as a batch
+                    }
+                }
+
+                statement.executeBatch();  // which uploads as a group
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+
+    }
+
+    private int insertTab(Tab tab){
+        int test = getTabIdFormDb(tab.getName()); // tabs are  s
+        if (test != -1){return test;}  // if item exits then return id of tab
+        //create new item
+        try (
+                Connection connection = connectToDB();
+                PreparedStatement statement =
+                        connection.prepareStatement(Insert_tab_Sql, Statement.RETURN_GENERATED_KEYS )
+        ) {
+
+            statement.setString(1, tab.getName());
+
+            statement.executeUpdate();
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return -1;
+    }
+
+
+    private int getTabIdFormDb(String name){
+          final String SELECT_TAB_SQL = """
+    SELECT id, name
+    FROM tabs
+    WHERE name = ?
+    """;
+        try (
+                Connection connection = connectToDB();
+                PreparedStatement statement =
+                        connection.prepareStatement(SELECT_TAB_SQL)
+        ) {
+
+            statement.setString(1, name);
+
+            try (ResultSet result = statement.executeQuery()) {
+
+                if (result.next()) {
+                    return result.getInt("id");
+                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        return -1;
     }
+
+    private int getHabitIdFormDb(String name){
+        final String SELECT_HABIT_SQL = """
+    SELECT id, name, purpose, priority
+    FROM habits
+    WHERE id = ?
+    """;
+        try (
+                Connection connection = connectToDB();
+                PreparedStatement statement =
+                        connection.prepareStatement(SELECT_HABIT_SQL)
+        ) {
+
+            statement.setString(1, name);
+
+            try (ResultSet result = statement.executeQuery()) {
+
+                if (result.next()) {
+                    return result.getInt("id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+
+
+
+
 
     public boolean updateHabit(){
 
