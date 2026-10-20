@@ -139,4 +139,7 @@ public class Habit {
     public int getPriority() {
         return  priority;
     }
+
+    public Map<DayOfWeek, List<LocalTime>> getTimesOfWeek() { return timesOfWeek;
+    }
 }
