@@ -30,6 +30,10 @@ public class DatabaseManager {
 
     public static void main(String[] args) {
         // this will use to test db
+
+        DatabaseInitializer.initialize();
+
+
     }
 
 

@@ -7,7 +7,8 @@ import java.sql.Statement;
 
 public class DatabaseConnection {
 
-    private static final String DATA_LOCATION =
+    // no need for private, only those in package habitPop.model.DataBaseInterface can access the Strings
+    static final String DATA_LOCATION =
             "jdbc:sqlite:data/habitpop.db";
 
     public static Connection connectToDB() throws SQLException {

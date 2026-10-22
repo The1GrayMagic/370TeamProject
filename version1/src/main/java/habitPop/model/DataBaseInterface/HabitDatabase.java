@@ -10,29 +10,30 @@ import java.util.Map;
 
 public class HabitDatabase {
 
-    private static final String Insert_Habit_Sql = """
+    // no need for private, only those in package habitPop.model.DataBaseInterface can access the Strings
+     static final String Insert_Habit_Sql = """
         INSERT INTO habits(name, purpose, priority)
         VALUES (?, ?, ?)
         """;
 
-    private static final String Update_Habit_Sql = """
+     static final String Update_Habit_Sql = """
         UPDATE habits
         SET name = ?, purpose = ?, priority = ?
         WHERE id = ?
         """;
 
-    private static final String Delete_Habit_Sql = """
+     static final String Delete_Habit_Sql = """
         DELETE FROM habits
         WHERE id = ?
         """;
 
-    private static final String Select_Habit_Sql = """
+     static final String Select_Habit_Sql = """
         SELECT id, name, purpose, priority
         FROM habits
         WHERE id = ?
         """;
 
-    private static final String Insert_DaysOfWeek_Sql = """
+     static final String Insert_DaysOfWeek_Sql = """
         INSERT INTO history(habit_id, date, time)
         VALUES (?, ?, ?)
         """;

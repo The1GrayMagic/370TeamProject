@@ -6,10 +6,8 @@ import java.sql.Statement;
 
 public class DatabaseInitializer {
 
-    /*Initialize The database and set predefined structures */
-    public static void initialize() {
 
-        String createHabits = """
+    static final String createHabits = """
             CREATE TABLE IF NOT EXISTS habits (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -18,14 +16,14 @@ public class DatabaseInitializer {
             );
             """;
 
-        String createTabs = """
+    static final  String createTabs = """
             CREATE TABLE IF NOT EXISTS tabs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL UNIQUE
             );
             """;
 
-        String createHabitTabs = """
+    static final String createHabitTabs = """
             CREATE TABLE IF NOT EXISTS habit_tabs (
                 habit_id INTEGER NOT NULL,
                 tab_id INTEGER NOT NULL,
@@ -38,7 +36,7 @@ public class DatabaseInitializer {
             );
             """;
 
-        String createSchedules = """
+    static final  String createSchedules = """
             CREATE TABLE IF NOT EXISTS schedules (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 habit_id INTEGER NOT NULL,
@@ -50,7 +48,7 @@ public class DatabaseInitializer {
             );
             """;
 
-        String createHistory = """
+    static final  String createHistory = """
             CREATE TABLE IF NOT EXISTS history (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 habit_id INTEGER NOT NULL,
@@ -62,6 +60,10 @@ public class DatabaseInitializer {
                     REFERENCES habits(id)
             );
             """;
+
+
+    /*Initialize The database and set predefined structures */
+    public static void initialize() {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();   // connect to db
