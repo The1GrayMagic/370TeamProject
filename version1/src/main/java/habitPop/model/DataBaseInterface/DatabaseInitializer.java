@@ -1,4 +1,4 @@
-package habitPop.model.DataBase;
+package habitPop.model.DataBaseInterface;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -64,7 +64,7 @@ public class DatabaseInitializer {
             """;
 
         try (
-                Connection connection = Database.connectToDB();   // connect to db
+                Connection connection = DatabaseConnection.connectToDB();   // connect to db
                 Statement statement = connection.createStatement()
         ) {
 

@@ -1,4 +1,4 @@
-package habitPop.model.DataBase;
+package habitPop.model.DataBaseInterface;
 
 import habitPop.model.Habit;
 
@@ -45,7 +45,7 @@ public class HabitDatabase {
     private int insertHabit(Habit habit) {
 
         try (
-                Connection connection = Database.connectToDB();
+                Connection connection = DatabaseConnection.connectToDB();
                 PreparedStatement statement =
                         connection.prepareStatement(
                                 Insert_Habit_Sql,
@@ -79,7 +79,7 @@ public class HabitDatabase {
             int habitId) {
 
         try (
-                Connection connection = Database.connectToDB();
+                Connection connection = DatabaseConnection.connectToDB();
                 PreparedStatement statement =
                         connection.prepareStatement(Insert_DaysOfWeek_Sql)
         ) {

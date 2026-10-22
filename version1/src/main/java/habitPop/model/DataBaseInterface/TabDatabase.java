@@ -1,4 +1,4 @@
-package habitPop.model.DataBase;
+package habitPop.model.DataBaseInterface;
 
 import habitPop.model.Tab;
 
@@ -16,6 +16,12 @@ public class TabDatabase {
         VALUES (?, ?)
         """;
 
+    private static final String SELECT_TAB_SQL = """
+            SELECT id, name
+            FROM tabs
+            WHERE name = ?
+            """;
+
     public void addTab(Tab tab) throws SQLException {
         int id = insertTab(tab);
     }
@@ -29,7 +35,7 @@ public class TabDatabase {
         }
 
         try (
-                Connection connection = Database.connectToDB();
+                Connection connection = DatabaseConnection.connectToDB();
                 PreparedStatement statement =
                         connection.prepareStatement(
                                 Insert_tab_Sql,
@@ -59,14 +65,8 @@ public class TabDatabase {
 
     private int getTabIdFromDb(String name) {
 
-        final String SELECT_TAB_SQL = """
-            SELECT id, name
-            FROM tabs
-            WHERE name = ?
-            """;
-
         try (
-                Connection connection = Database.connectToDB();
+                Connection connection = DatabaseConnection.connectToDB();
                 PreparedStatement statement =
                         connection.prepareStatement(SELECT_TAB_SQL)
         ) {
@@ -86,4 +86,10 @@ public class TabDatabase {
 
         return -1;
     }
+
+
+
+
+
+
 }
