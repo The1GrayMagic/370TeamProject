@@ -2,7 +2,6 @@ package habitPop.model.DataBaseInterface;
 
 import habitPop.model.DayStatus;
 
-import java.lang.foreign.MemorySegment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,15 +14,28 @@ import java.util.Map;
 
 public class HistoryDatabase {
 
-    private static final String Insert_History_Sql = """
+     static final String Insert_History_Sql = """
         INSERT INTO history(habit_id, date, time, completed)
         VALUES (?, ?, ?, ?)
         """;
 
-    private static final String FIND_HISTORY_SQL = """
+     static final String FIND_HISTORY_SQL = """
         SELECT habit_id, date, time, completed
         FROM history
         WHERE habit_id = ?
+        """;
+    static final String UPDATE_COMPLETED_HISTORY_SQL = """
+        UPDATE history
+        WHERE habit_id = ?
+        WHERE date = ?
+        WHERE time = ?
+        SET completed = ?
+        """;
+    static final String DELETE_HISTORY_DAY_SQL = """
+        DELETE From History 
+        FROM history
+        WHERE habit_id = ?_H
+        WHERE date = ?_H 
         """;
 
 
@@ -116,7 +128,6 @@ public class HistoryDatabase {
 
             try (ResultSet result = statement.executeQuery()) {
                 while (result.next()){
-
 
 
 

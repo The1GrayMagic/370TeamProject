@@ -1,46 +1,49 @@
 package habitPop.model.DataBaseInterface;
 
+import habitPop.model.Habit;
 import habitPop.model.Tab;
 
 import java.sql.*;
+import java.util.List;
 
 public class TabDatabase {
 
-     static final String Insert_tab_Sql = """
-        INSERT INTO tabs(name)
-        VALUES (?)
-        """;
+    static final String Insert_tab_Sql = """
+            INSERT INTO tabs(name)
+            VALUES (?)
+            """;
 
-     static final String Insert_Tab_Habit_Sql = """
-        INSERT INTO habit_tabs(habit_id, tab_id)
-        VALUES (?, ?)
-        """;
+    static final String Insert_Tab_Habit_Sql = """
+            INSERT INTO habit_tabs(habit_id, tab_id)
+            VALUES (?, ?)
+            """;
 
-     static final String SELECT_TAB_SQL = """
-        SELECT id, name
-        FROM tabs
-        WHERE name = ?
-        """;
+    static final String SELECT_TAB_SQL = """
+            SELECT id, name
+            FROM tabs
+            WHERE name = ?
+            """;
 
-     static final String UPDATE_TAB = """
-        UPDATE tabs
-        SET name = ?
-        WHERE id = ?
-        """;
+    static final String UPDATE_TAB = """
+            UPDATE tabs
+            SET name = ?
+            WHERE id = ?
+            """;
 
-     static final String DELETE_Tab = """
-        DELETE FROM tabs
-        WHERE tab_id = ?;
-        """ ;
+    static final String DELETE_TAB = """
+            DELETE FROM tabs
+            WHERE tab_id = ?;
+            """;
 
-     static final String DELETE_TAB_HABIT = """
-        DELETE FROM habit_tabs
-        WHERE tab_id = ?;
-        """;
+    static final String DELETE_TAB_HABIT = """
+            DELETE FROM habit_tabs
+            WHERE tab_id = ?;
+            """;
 
 
-    public void addTab(Tab tab) throws SQLException {
+    public boolean addTab(Tab tab) throws SQLException {
         int id = insertTab(tab);
+        return id != -1;
     }
 
     private int insertTab(Tab tab) {
@@ -104,63 +107,96 @@ public class TabDatabase {
         return -1;
     }
 
-    public boolean changeTabName(String OldName, String NewName){
+    private boolean insertHabitTabs(Tab tab) {
 
-        int test = getTabIdFromDb(OldName);
+        int tabId = getTabIdFromDb(tab.getName());
 
-        if (test == -1){
+        if (tabId == -1) {
             return false;
         }
-
-
-
-
-
-
-
-
-
-        return false;
-    }
-
-    public boolean deleteTab(Tab tab){
-
-        int test = getTabIdFromDb(tab.getName());
-
-        if (test == -1) {return true; }  // it no item
-
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
                 PreparedStatement statement =
-                        connection.prepareStatement(
-                                DELETE_Tab
-                        )
+                        connection.prepareStatement(Insert_Tab_Habit_Sql)
         ) {
 
-            statement.setString(1, tab.getName());
+            List<Habit> habits = tab.getHabitList();
 
+            for (Habit habit : habits) {
 
-            try (ResultSet generatedKeys =
-                         statement.getGeneratedKeys()) {
+                int habitId = habit.getId();
 
-                if (generatedKeys.next()) {
-                    return false;
-                }
+                statement.setInt(1, habitId);
+                statement.setInt(2, tabId);
+
+                statement.addBatch();
             }
+
+            statement.executeBatch();
+
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
-        return false;
-
-
-
-
     }
 
+    public boolean changeTabName(String OldName, String NewName) {
 
+        int tabId = getTabIdFromDb(OldName);
+
+        if (tabId == -1) {
+            return false;
+        }
+
+
+        try (
+                Connection connection = DatabaseConnection.connectToDB();
+                PreparedStatement statement =
+                        connection.prepareStatement(UPDATE_TAB)
+        ) {
+
+            statement.setString(1, NewName);
+            statement.setInt(2, tabId);
+
+            statement.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteTab(Tab tab) {
+
+        int tabId = getTabIdFromDb(tab.getName());
+
+        if (tabId == -1) {
+            return true; // already doesn't exist
+        }
+
+        try (
+                Connection connection = DatabaseConnection.connectToDB();
+                PreparedStatement statementTabHibit =
+                        connection.prepareStatement(DELETE_TAB_HABIT);
+                PreparedStatement statementTab =
+                        connection.prepareStatement(DELETE_TAB);
+        ) {
+
+
+            statementTabHibit.setInt(1, tabId);
+            int relationsDeleted = statementTabHibit.executeUpdate();
+            statementTab.setInt(1, tabId);
+            int tabsDeleted = statementTab.executeUpdate();
+            return tabsDeleted > 0 && relationsDeleted > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

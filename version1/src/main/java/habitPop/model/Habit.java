@@ -142,4 +142,6 @@ public class Habit {
 
     public Map<DayOfWeek, List<LocalTime>> getTimesOfWeek() { return timesOfWeek;
     }
+
+    public int getId() { return id; }
 }
