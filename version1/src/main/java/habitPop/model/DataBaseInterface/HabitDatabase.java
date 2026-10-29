@@ -38,10 +38,21 @@ public class HabitDatabase {
         VALUES (?, ?, ?)
         """;
 
-    public void addHabit(Habit habit) throws SQLException {
+
+    public boolean addHabit(Habit habit) throws SQLException{
+
         int id = insertHabit(habit);
-        insertDaysOfWeeks(habit.getTimesOfWeek(), id);
+
+        if (id == -1) {
+            return false;
+        }
+
+        return insertDaysOfWeeks(
+                habit.getTimesOfWeek(),
+                id
+        );
     }
+
 
     private int insertHabit(Habit habit) {
 

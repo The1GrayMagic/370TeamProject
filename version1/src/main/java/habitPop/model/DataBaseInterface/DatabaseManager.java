@@ -19,7 +19,8 @@ public class DatabaseManager {
     }
 
     public void addHabit(Habit habit) throws SQLException {
-        habitDatabase.addHabit(habit);
+        if (habitDatabase.addHabit(habit))
+            return;
     }
 
     public void addTab(Tab tab) throws SQLException {

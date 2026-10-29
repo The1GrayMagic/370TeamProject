@@ -12,31 +12,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 public class HistoryDatabase {
 
-     static final String Insert_History_Sql = """
+    static final String Insert_History_Sql = """
         INSERT INTO history(habit_id, date, time, completed)
         VALUES (?, ?, ?, ?)
         """;
 
-     static final String FIND_HISTORY_SQL = """
+    static final String FIND_HISTORY_SQL = """
         SELECT habit_id, date, time, completed
         FROM history
         WHERE habit_id = ?
         """;
+
+    static final String FIND_HISTORY_DAY_SQL = """
+        SELECT habit_id, date, time, completed
+        FROM history
+        WHERE habit_id = ?
+        AND date = ?
+        """;
+
     static final String UPDATE_COMPLETED_HISTORY_SQL = """
         UPDATE history
-        WHERE habit_id = ?
-        WHERE date = ?
-        WHERE time = ?
         SET completed = ?
+        WHERE habit_id = ?
+        AND date = ?
+        AND time = ?
         """;
+
     static final String DELETE_HISTORY_DAY_SQL = """
-        DELETE From History 
-        FROM history
-        WHERE habit_id = ?_H
-        WHERE date = ?_H 
+        DELETE FROM history
+        WHERE habit_id = ?
+        AND date = ?
         """;
+
+    static final String DELETE_ALL_HISTORY_SQL = """
+        DELETE FROM history
+        WHERE habit_id = ?
+        """;
+
 
 
     public boolean insertHistory(List<DayStatus> history, int habitId) {
