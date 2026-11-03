@@ -41,6 +41,7 @@ public class HistoryDatabase {
         AND time = ?
         """;
 
+
     static final String DELETE_HISTORY_DAY_SQL = """
         DELETE FROM history
         WHERE habit_id = ?
@@ -52,14 +53,11 @@ public class HistoryDatabase {
         WHERE habit_id = ?
         """;
 
-
-
-    public boolean insertHistory(List<DayStatus> history, int habitId) {
+    boolean insertHistory(List<DayStatus> history, int habitId) {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(Insert_History_Sql)
+                PreparedStatement statement = connection.prepareStatement(Insert_History_Sql)
         ) {
 
             for (DayStatus dayStatus : history) {
@@ -68,18 +66,9 @@ public class HistoryDatabase {
                         : dayStatus.getCompletions().entrySet()) {
 
                     statement.setInt(1, habitId);
-                    statement.setString(
-                            2,
-                            dayStatus.getDate().toString()
-                    );
-                    statement.setString(
-                            3,
-                            entry.getKey().toString()
-                    );
-                    statement.setBoolean(
-                            4,
-                            entry.getValue()
-                    );
+                    statement.setString(2, dayStatus.getDate().toString());
+                    statement.setString(3, entry.getKey().toString());
+                    statement.setBoolean(4, entry.getValue());
 
                     statement.executeUpdate();
                 }
@@ -93,29 +82,19 @@ public class HistoryDatabase {
         }
     }
 
-    public boolean addDayHabitHistory(int habitId, DayStatus day) {
+    boolean addDayHabitHistory(int habitId, DayStatus day) {
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(Insert_History_Sql)
+                PreparedStatement statement = connection.prepareStatement(Insert_History_Sql)
         ) {
 
 
             for (Map.Entry<LocalTime, Boolean> entry : day.getCompletions().entrySet()) {
 
                 statement.setInt(1, habitId);
-                statement.setString(
-                        2,
-                        day.getDate().toString()
-                );
-                statement.setString(
-                        3,
-                        entry.getKey().toString()
-                );
-                statement.setBoolean(
-                        4,
-                        entry.getValue()
-                );
+                statement.setString(2, day.getDate().toString());
+                statement.setString(3, entry.getKey().toString());
+                statement.setBoolean(4, entry.getValue());
 
                 statement.executeUpdate();
             }
@@ -130,43 +109,47 @@ public class HistoryDatabase {
         return false;
     }
 
-    public List<DayStatus> updateHabitHistoryDay(int habit_id,DayStatus day ) throws SQLException {
+    boolean updateHabitHistoryDay(int habitId,DayStatus day ) throws SQLException {
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(FIND_HISTORY_SQL);
+                PreparedStatement statement = connection.prepareStatement(UPDATE_COMPLETED_HISTORY_SQL)
         ) {
 
+            for (Map.Entry<LocalTime, Boolean> entry
+                    : day.getCompletions().entrySet()) {
 
-            statement.setInt(1, habit_id);
-            statement.setString(2, day.getDate().toString());
+                /*
+                 * SQL order:
+                 *
+                 * completed = ?   -> 1
+                 * habit_id = ?    -> 2
+                 * date = ?        -> 3
+                 * time = ?        -> 4
+                 */
 
-            try (ResultSet result = statement.executeQuery()) {
-                while (result.next()){
+                statement.setBoolean(1, entry.getValue());
+                statement.setInt(2, habitId);
+                statement.setString(3, day.getDate().toString());
+                statement.setString(4,entry.getKey().toString());
 
-
-
-
-
-                }
+                statement.addBatch();
             }
 
+            statement.executeBatch();
 
+            return true;
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
+
             e.printStackTrace();
+            return false;
         }
-
-        return null;
     }
 
-
-
-    public List<DayStatus> getHabitHistory(int habit_id) throws SQLException {
+    List<DayStatus> getHabitHistory(int habit_id) throws SQLException {
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(FIND_HISTORY_SQL);
+                PreparedStatement statement = connection.prepareStatement(FIND_HISTORY_SQL);
         ) {
 
 
@@ -185,18 +168,55 @@ public class HistoryDatabase {
     return null;
     }
 
-    private void createList(List<DayStatus> history, ResultSet result) throws SQLException {
+    boolean deleteHistoryDay(int habitId, LocalDate date) {
+
+        try (
+                Connection connection = DatabaseConnection.connectToDB();
+                PreparedStatement statement = connection.prepareStatement(DELETE_HISTORY_DAY_SQL)
+        ) {
+
+            statement.setInt(1, habitId);
+
+            statement.setString(2,date.toString());
+
+            int rowsDeleted = statement.executeUpdate();
+
+            return rowsDeleted > 0;
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    boolean deleteHabitHistory(int habitId) {
+
+        try (
+                Connection connection = DatabaseConnection.connectToDB();
+
+                PreparedStatement statement = connection.prepareStatement(DELETE_ALL_HISTORY_SQL)
+        ) {
+
+            statement.setInt(1,  habitId);
+            statement.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    void createList(List<DayStatus> history, ResultSet result) throws SQLException {
 
         while (result.next()) {
 
-            LocalDate date =
-                    LocalDate.parse(result.getString("date"));
-
-            LocalTime time =
-                    LocalTime.parse(result.getString("time"));
-
-            boolean completed =
-                    result.getBoolean("completed");
+            LocalDate date = LocalDate.parse(result.getString("date"));
+            LocalTime time = LocalTime.parse(result.getString("time"));
+            boolean completed = result.getBoolean("completed");
 
             DayStatus existingDay = null;
 
@@ -208,20 +228,14 @@ public class HistoryDatabase {
             }
 
             if (existingDay != null) {
-
                 existingDay.updateOrAdd(time, completed);
-
             } else {
 
-                DayStatus newDay =
-                        new DayStatus(date, List.of(time));
-
+                DayStatus newDay = new DayStatus(date, List.of(time));
                 newDay.updateInList(time, completed);
-
                 history.add(newDay);
             }
         }
     }
-
 
 }

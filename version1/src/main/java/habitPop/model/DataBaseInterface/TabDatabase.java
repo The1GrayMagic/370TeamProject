@@ -46,7 +46,7 @@ public class TabDatabase {
         return id != -1;
     }
 
-    private int insertTab(Tab tab) {
+    int insertTab(Tab tab) {
 
         int test = getTabIdFromDb(tab.getName());
 
@@ -56,19 +56,14 @@ public class TabDatabase {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(
-                                Insert_tab_Sql,
-                                Statement.RETURN_GENERATED_KEYS
-                        )
+                PreparedStatement statement = connection.prepareStatement(Insert_tab_Sql, Statement.RETURN_GENERATED_KEYS)
         ) {
 
             statement.setString(1, tab.getName());
 
             statement.executeUpdate();
 
-            try (ResultSet generatedKeys =
-                         statement.getGeneratedKeys()) {
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
 
                 if (generatedKeys.next()) {
                     return generatedKeys.getInt(1);
@@ -83,12 +78,11 @@ public class TabDatabase {
         return -1;
     }
 
-    private int getTabIdFromDb(String name) {
+    int getTabIdFromDb(String name) {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(SELECT_TAB_SQL)
+                PreparedStatement statement = connection.prepareStatement(SELECT_TAB_SQL)
         ) {
 
             statement.setString(1, name);
@@ -107,7 +101,7 @@ public class TabDatabase {
         return -1;
     }
 
-    private boolean insertHabitTabs(Tab tab) {
+    boolean insertHabitTabs(Tab tab) {
 
         int tabId = getTabIdFromDb(tab.getName());
 
@@ -117,8 +111,7 @@ public class TabDatabase {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(Insert_Tab_Habit_Sql)
+                PreparedStatement statement = connection.prepareStatement(Insert_Tab_Habit_Sql)
         ) {
 
             List<Habit> habits = tab.getHabitList();
@@ -143,7 +136,7 @@ public class TabDatabase {
         }
     }
 
-    public boolean changeTabName(String OldName, String NewName) {
+    boolean changeTabName(String OldName, String NewName) {
 
         int tabId = getTabIdFromDb(OldName);
 
@@ -154,8 +147,7 @@ public class TabDatabase {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(UPDATE_TAB)
+                PreparedStatement statement = connection.prepareStatement(UPDATE_TAB)
         ) {
 
             statement.setString(1, NewName);
@@ -170,7 +162,7 @@ public class TabDatabase {
         return false;
     }
 
-    public boolean deleteTab(Tab tab) {
+    boolean deleteTab(Tab tab) {
 
         int tabId = getTabIdFromDb(tab.getName());
 
@@ -180,10 +172,8 @@ public class TabDatabase {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statementTabHibit =
-                        connection.prepareStatement(DELETE_TAB_HABIT);
-                PreparedStatement statementTab =
-                        connection.prepareStatement(DELETE_TAB);
+                PreparedStatement statementTabHibit = connection.prepareStatement(DELETE_TAB_HABIT);
+                PreparedStatement statementTab = connection.prepareStatement(DELETE_TAB);
         ) {
 
 

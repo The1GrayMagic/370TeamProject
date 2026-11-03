@@ -50,6 +50,13 @@ public class Habit {
         }
     }
 
+    public Habit(String nameI, String purposeI, int priorityI) {
+        name = nameI;
+        purpose = purposeI;
+        priority = priorityI;
+
+    }
+
 
     //way to import old history
     public void addPreviousHistory(List<DayStatus> oldHistory){
@@ -144,4 +151,8 @@ public class Habit {
     }
 
     public int getId() { return id; }
+
+    public void setId(int habitId) {
+        id =habitId;
+    }
 }

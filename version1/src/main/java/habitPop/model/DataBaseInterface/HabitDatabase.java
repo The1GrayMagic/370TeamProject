@@ -5,6 +5,7 @@ import habitPop.model.Habit;
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,36 +34,17 @@ public class HabitDatabase {
         WHERE id = ?
         """;
 
-     static final String Insert_DaysOfWeek_Sql = """
-        INSERT INTO history(habit_id, date, time)
-        VALUES (?, ?, ?)
+    static final String Select_All_Habits_Sql = """
+        SELECT id, name, purpose, priority
+        FROM habits
         """;
 
 
-    public boolean addHabit(Habit habit) throws SQLException{
-
-        int id = insertHabit(habit);
-
-        if (id == -1) {
-            return false;
-        }
-
-        return insertDaysOfWeeks(
-                habit.getTimesOfWeek(),
-                id
-        );
-    }
-
-
-    private int insertHabit(Habit habit) {
+    int insertHabit(Habit habit) {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(
-                                Insert_Habit_Sql,
-                                Statement.RETURN_GENERATED_KEYS
-                        )
+                PreparedStatement statement = connection.prepareStatement(Insert_Habit_Sql, Statement.RETURN_GENERATED_KEYS)
         ) {
 
             statement.setString(1, habit.getName());
@@ -86,34 +68,21 @@ public class HabitDatabase {
         return -1;
     }
 
-    private boolean insertDaysOfWeeks(
-            Map<DayOfWeek, List<LocalTime>> timesOfWeek,
-            int habitId) {
+    boolean updateHabit(int id, Habit habit) {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();
-                PreparedStatement statement =
-                        connection.prepareStatement(Insert_DaysOfWeek_Sql)
+                PreparedStatement statement = connection.prepareStatement(Update_Habit_Sql)
         ) {
 
-            for (Map.Entry<DayOfWeek, List<LocalTime>> dayEntry
-                    : timesOfWeek.entrySet()) {
+            statement.setString(1, habit.getName());
+            statement.setString(2, habit.getPurpose());
+            statement.setInt(3, habit.getPriority());
+            statement.setInt(4, id);
 
-                DayOfWeek day = dayEntry.getKey();
+            int rowsUpdated = statement.executeUpdate();
 
-                for (LocalTime time : dayEntry.getValue()) {
-
-                    statement.setInt(1, habitId);
-                    statement.setString(2, day.toString());
-                    statement.setString(3, time.toString());
-
-                    statement.addBatch();
-                }
-            }
-
-            statement.executeBatch();
-
-            return true;
+            return rowsUpdated > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,22 +90,85 @@ public class HabitDatabase {
         }
     }
 
-    public boolean updateHabit(int Id) {
+    boolean deleteHabit(int id) {
 
-        return false;
+        try (
+                Connection connection = DatabaseConnection.connectToDB();
+                PreparedStatement statement = connection.prepareStatement(Delete_Habit_Sql)
+        ) {
+
+            statement.setInt(1, id);
+
+            int rowsDeleted = statement.executeUpdate();
+
+            return rowsDeleted > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public boolean updateHabitDays(int Id) {
+    Habit getHabit(int id) {
 
-        return false;
+        try (
+                Connection connection = DatabaseConnection.connectToDB();
+
+                PreparedStatement statement = connection.prepareStatement(Select_Habit_Sql)
+        ) {
+
+            statement.setInt(1, id);
+
+            try (
+                    ResultSet result = statement.executeQuery()
+            ) {
+
+                if (result.next()) {
+
+                    String name = result.getString("name");
+
+                    String purpose = result.getString("purpose");
+
+                    int priority = result.getInt("priority");
+
+                    return new Habit(name,purpose,priority);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
-    public boolean deleteHabit() {
+    List<Habit> getHabits() {
 
-        return false;
+        List<Habit> habits = new ArrayList<>();
+
+        try (
+                Connection connection = DatabaseConnection.connectToDB();
+                PreparedStatement statement = connection.prepareStatement(Select_All_Habits_Sql);
+                ResultSet result = statement.executeQuery()
+        ) {
+
+            while (result.next()) {
+
+                String name = result.getString("name");
+                String purpose = result.getString("purpose");
+
+                int priority = result.getInt("priority");
+
+                Habit habit = new Habit(name,purpose, priority);
+                habits.add(habit);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return habits;
     }
 
-    public void getHabits() {
 
-    }
 }
