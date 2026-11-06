@@ -147,8 +147,7 @@ public class Habit {
         return  priority;
     }
 
-    public Map<DayOfWeek, List<LocalTime>> getTimesOfWeek() { return timesOfWeek;
-    }
+    public Map<DayOfWeek, List<LocalTime>> getTimesOfWeek() {return timesOfWeek;}
 
     public int getId() { return id; }
 

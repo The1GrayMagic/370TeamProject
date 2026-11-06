@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="935.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="134.0" prefWidth="1536.0">
@@ -46,9 +45,9 @@
                </font>
             </Text>
             <SplitMenuButton layoutX="250.0" layoutY="65.0" mnemonicParsing="false" scaleX="2.0" scaleY="2.0" scaleZ="2.0" text=" ">
-              <items>
-                <MenuItem mnemonicParsing="false" text="1" />
-                <MenuItem mnemonicParsing="false" text="2" />
+               <items>
+                  <MenuItem mnemonicParsing="false" text="1" />
+                  <MenuItem mnemonicParsing="false" text="2" />
                   <MenuItem mnemonicParsing="false" text="3" />
                   <MenuItem mnemonicParsing="false" text="4" />
                   <MenuItem mnemonicParsing="false" text="5" />
@@ -59,7 +58,7 @@
                   <MenuItem mnemonicParsing="false" text="10" />
                   <MenuItem mnemonicParsing="false" text="11" />
                   <MenuItem mnemonicParsing="false" text="12" />
-              </items>
+               </items>
             </SplitMenuButton>
             <Text layoutX="325.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
                <font>
@@ -128,12 +127,12 @@
       </AnchorPane>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button cancelButton="true" mnemonicParsing="false" text="Cancel" textAlignment="CENTER">
+            <Button cancelButton="true" mnemonicParsing="false" onAction=" " text="Cancel" textAlignment="CENTER">
                <font>
                   <Font size="30.0" />
                </font>
             </Button>
-          <Button defaultButton="true" mnemonicParsing="false" text="Add">
+            <Button defaultButton="true" mnemonicParsing="false" text="Add">
                <font>
                   <Font size="30.0" />
                </font>

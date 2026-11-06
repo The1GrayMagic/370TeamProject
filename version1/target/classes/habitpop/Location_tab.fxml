@@ -44,7 +44,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/26"  xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.MainController">
    <children>
       <ToolBar>
          <items>
@@ -78,8 +78,8 @@
       <HBox alignment="CENTER" prefHeight="359.0" prefWidth="640.0" spacing="10.0">
          <children>
             <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Location 1">
+               <tabs>
+                  <Tab text="Location 1">
                      <content>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
                            <children>
@@ -95,8 +95,8 @@
                            </padding>
                         </VBox>
                      </content>
-                </Tab>
-              </tabs>
+                  </Tab>
+               </tabs>
             </TabPane>
             <TabPane layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
                <tabs>
