@@ -1,0 +1,44 @@
+.page-title {
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+}
+
+.section-title {
+    -fx-font-size: 28px;
+}
+
+.form-label {
+    -fx-font-size: 18px;
+}
+
+.button {
+    -fx-font-size: 16px;
+}
+.page-title {
+    -fx-font-size: 59px;
+    -fx-font-weight: bold;
+}
+
+.page-subtitle {
+    -fx-font-size: 32px;
+}
+
+.form-heading {
+    -fx-font-size: 40px;
+}
+
+.form-label {
+    -fx-font-size: 18px;
+}
+
+.form-field {
+    -fx-font-size: 18px;
+}
+
+.priority-radio {
+    -fx-font-size: 25px;
+}
+
+.button {
+    -fx-font-size: 30px;
+}

@@ -11,28 +11,16 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-
     String StartPage = "/habitpop/main-view.fxml" ;
-    String View = "/habitpop/View_habit.fxml" ;
-
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader =
-            new FXMLLoader(getClass().getResource(StartPage));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(StartPage));
 
         Scene scene = new Scene(loader.load());
 
         stage.setScene(scene);
-        stage.show();
-    }
-    public void load(Stage stage) throws IOException {
-        FXMLLoader loader =
-                new FXMLLoader(getClass().getResource(View));
-
-        Scene scene = new Scene(loader.load());
-
-        stage.setScene(scene);
+        stage.setTitle("HabitPop");
         stage.show();
     }
 
