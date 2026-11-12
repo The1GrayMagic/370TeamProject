@@ -57,6 +57,15 @@ public class Habit {
 
     }
 
+    public Habit(String nameI, String notes, int priorityI, Map<DayOfWeek, List<LocalTime>> timesOfWeekI) {
+
+        name = nameI;
+        purpose = notes;
+        priority = priorityI;
+        timesOfWeek = timesOfWeekI;
+
+    }
+
 
     //way to import old history
     public void addPreviousHistory(List<DayStatus> oldHistory){

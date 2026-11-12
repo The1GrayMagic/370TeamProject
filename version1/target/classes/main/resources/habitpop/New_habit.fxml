@@ -1,124 +1,187 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.RadioButton?>
+<VBox alignment="TOP_CENTER" prefHeight="935.0" prefWidth="1536.0" styleClass="page-root" stylesheets="@css/base.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.NewHabitController">
+
+    <fx:define>
+        <ToggleGroup fx:id="priorityGroup" />
+    </fx:define>
+
+    <!-- Main form card -->
+    <VBox alignment="CENTER" maxWidth="1050.0" spacing="24.0" styleClass="form-card">
+
+        <!-- Page heading -->
+        <Label styleClass="page-title" text="Create a new habit" />
+        <Label styleClass="page-subtitle" text="Add a habit to your schedule" />
 
 
-<VBox styleClass="page-root"
-      stylesheets="@css/base.css"
-      prefHeight="935.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.NewHabitController">
+      <GridPane maxWidth="700.0" hgap="20.0" vgap="12.0" styleClass="top-form">
+          <columnConstraints>
+              <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+              <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+          </columnConstraints>
+      
+              <!-- Habit name -->
+              <VBox spacing="6.0"  GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <Label styleClass="form-heading" text="Habit name *" />
+                  <TextField fx:id="habitNameField" promptText="e.g. Drink water" styleClass="form-field" />
+              </VBox>
+      
+              <!-- Location -->
+              <VBox spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                  <Label styleClass="form-heading" text="Location:" />
+                  <TextField fx:id="locationField" promptText="e.g. Kitchen" styleClass="form-field" />
+              </VBox>
 
-   <fx:define>
-      <ToggleGroup fx:id="priorityGroup" />
-   </fx:define>
 
-   <children>
-      <!-- Page heading -->
-      <AnchorPane prefHeight="134.0" >
-         <children>
-            <Text layoutX="10.0" layoutY="70.0" text="Create a new habit" styleClass="page-title"/>
-            <Text layoutY="100.0" text="Add a habit to your schedule" textAlignment="RIGHT" wrappingWidth="740.0" styleClass="page-subtitle"/>
-         </children>
-      </AnchorPane>
+          <!-- Priority -->
+          <VBox spacing="8.0"
+                GridPane.columnIndex="0"
+                GridPane.rowIndex="1">
 
-      <!-- Habit name -->
-      <AnchorPane prefHeight="125.0" >
-         <children>
-            <Text layoutX="150.0" layoutY="40.0" text="Habit name *" textAlignment="RIGHT" wrappingWidth="337.0" styleClass="form-heading" />
-            <TextField fx:id="habitNameField" layoutX="415.0" layoutY="105.0" prefHeight="25.0" prefWidth="370.0" promptText="e.g Drink water" styleClass="form-field"/>
-            <!-- try layoutX="415.0"
-                           layoutY="90.0"
-                           prefWidth="500.0"
-                           promptText="e.g. Drink water" -->
-         </children>
-      </AnchorPane>
+              <Label text="Priority" styleClass="form-heading"/>
 
-      <!-- Time -->
-      <AnchorPane prefHeight="125.0" >
-         <children>
-            <Text layoutX="150.0" layoutY="40.0" text="Time *" textAlignment="RIGHT" wrappingWidth="152" styleClass="form-heading"/>
-            <HBox alignment="CENTER" layoutX="280.0" layoutY="41.0" prefHeight="55.0" prefWidth="683.0" spacing="20.0">
-               <children>
-                  <Label text="Hour:" styleClass="form-label"/>
-                  <Spinner fx:id="defaultHour" editable="true" prefWidth="100"/>
+              <HBox spacing="12.0">
 
-                  <Label text="Minute:" styleClass="from-label"/>
-                  <Spinner fx:id="minuteSpinner" editable="true" prefWidth="100"/>
+                  <RadioButton fx:id="highPriority" text="High" styleClass="priority-radio">
+                      <toggleGroup>
+                          <fx:reference source="priorityGroup"/>
+                      </toggleGroup>
+                  </RadioButton>
 
-                  <Label text="Time:" styleClass="from-label"/>
-                  <ComboBox fx:id="defaultTime" prefWidth="100"/>
-               </children>
+                  <RadioButton fx:id="mediumPriority" text="Medium" styleClass="priority-radio">
+                      <toggleGroup>
+                          <fx:reference source="priorityGroup"/>
+                      </toggleGroup>
+                  </RadioButton>
+
+                  <RadioButton fx:id="lowPriority" text="Low" selected="true" styleClass="priority-radio">
+                      <toggleGroup>
+                          <fx:reference source="priorityGroup"/>
+                      </toggleGroup>
+                  </RadioButton>
+
+              </HBox>
+
+          </VBox>
+
+          <!-- Notes -->
+          <VBox spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <Label styleClass="form-heading" text="Notes (optional)" />
+              <TextField fx:id="notesField" promptText="Add any extra details" styleClass="form-field" />
+          </VBox>
+
+      </GridPane>
+        <!-- Schedule -->
+        <VBox maxWidth="700.0" spacing="10.0" styleClass="schedule-section">
+
+            <Label styleClass="form-heading" text="Schedule" />
+
+
+            <!-- Monday -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                <CheckBox fx:id="mondayCheck" text="Monday" />
+
+                <FlowPane fx:id="mondayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#addMondayTime" text="+ Add time" />
+
             </HBox>
-         </children>
-      </AnchorPane>
 
-      <!-- Location -->
-      <AnchorPane prefHeight="103.0" >
-         <children>
-            <Text layoutX="150.0" layoutY="50.0" text="Location:" textAlignment="RIGHT" wrappingWidth="208.0" styleClass="form-heading"/>
-            <TextField fx:id="locationField" layoutX="420.0" layoutY="60.0" prefHeight="25.0" prefWidth="370.0" promptText="e.g Kitchen" styleClass="form-field" />
-            <!--try layoutX="420.0"
-                           layoutY="40.0"
-                           prefWidth="500.0"
-                           promptText="e.g. Kitchen-->
-         </children>
-      </AnchorPane>
 
-      <!-- Priority -->
-      <AnchorPane prefHeight="215.0" >
-         <children>
-            <Text layoutX="200.0" layoutY="50.0" text="Priority:" textAlignment="RIGHT" wrappingWidth="168.0" styleClass="form-heading"/>
+            <!-- Tuesday -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
 
-            <RadioButton fx:id="highPriority" layoutX="300.0" layoutY="65.0" prefHeight="38.0" prefWidth="130.0" text="High" styleClass="priority-radio">
-               <toggleGroup>
-                  <fx:reference source="priorityGroup"/>
-               </toggleGroup>
+                <CheckBox fx:id="tuesdayCheck" text="Tuesday" />
 
-            </RadioButton>
+                <FlowPane fx:id="tuesdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 
-            <RadioButton fx:id="mediumPriority" layoutX="300.0" layoutY="115.0" prefHeight="38.0" prefWidth="178.0" text="Medium" styleClass="priority-radio" >
-               <toggleGroup>
-                  <fx:reference source="priorityGroup"/>
-               </toggleGroup>
-         </RadioButton>
+                <Button onAction="#addTuesdayTime" text="+ Add time" />
 
-            <RadioButton fx:id="lowPriority" layoutX="300.0" layoutY="165.0" prefHeight="38.0" prefWidth="130.0" text="Low" styleClass="priority-radio" selected="true" >
-               <toggleGroup>
-                  <fx:reference source="priorityGroup"/>
-               </toggleGroup>
-            </RadioButton>
+            </HBox>
 
-         </children>
-      </AnchorPane>
 
-      <!-- Notes -->
-      <AnchorPane prefHeight="103.0" >
-         <children>
-            <Text layoutX="190.0" layoutY="35.0" text="Notes (optional)" textAlignment="RIGHT" wrappingWidth="330.359375" styleClass="form-heading"/>
-            <TextField fx:id="notesField" layoutX="420.0" layoutY="60.0" prefHeight="25.0" prefWidth="370.0" promptText="Add any extra details" styleClass="form-field" />
-            <!--  layoutX="420.0"
-                           layoutY="40.0"
-                           prefWidth="500.0"
-                           promptText="Add any extra details"
-                           styleClass="form-field -->
-         </children>
-      </AnchorPane>
+            <!-- Wednesday -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
 
-      <!-- Buttons -->
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-         <children>
-            <Button cancelButton="true" onAction="#cancel" text="Cancel" textAlignment="CENTER" styleClass="seconday-button"/>
-            <Button defaultButton="true" onAction="#addHabit" text="Add" styleClass="primary-button"/>
-         </children>
-      </HBox>
-   </children>
+                <CheckBox fx:id="wednesdayCheck" text="Wednesday" />
+
+                <FlowPane fx:id="wednesdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#addWednesdayTime" text="+ Add time" />
+
+            </HBox>
+
+
+            <!-- Thursday -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                <CheckBox fx:id="thursdayCheck" text="Thursday" />
+
+                <FlowPane fx:id="thursdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#addThursdayTime" text="+ Add time" />
+
+            </HBox>
+
+
+            <!-- Friday -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                <CheckBox fx:id="fridayCheck" text="Friday" />
+
+                <FlowPane fx:id="fridayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#addFridayTime" text="+ Add time" />
+
+            </HBox>
+
+
+            <!-- Saturday -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                <CheckBox fx:id="saturdayCheck" text="Saturday" />
+
+                <FlowPane fx:id="saturdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#addSaturdayTime" text="+ Add time" />
+
+            </HBox>
+
+
+            <!-- Sunday -->
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                <CheckBox fx:id="sundayCheck" text="Sunday" />
+
+                <FlowPane fx:id="sundayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#addSundayTime" text="+ Add time" />
+
+            </HBox>
+
+        </VBox>
+
+        <!-- Buttons -->
+        <HBox alignment="CENTER" maxWidth="700.0" spacing="15.0">
+            <Button cancelButton="true" onAction="#cancel" styleClass="secondary-button" text="Cancel" />
+            <Button defaultButton="true" onAction="#addHabit" styleClass="primary-button" text="Add" />
+        </HBox>
+
+    </VBox>
 </VBox>

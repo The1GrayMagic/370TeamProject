@@ -1,13 +1,80 @@
 package habitPop.controller;
 
+import habitPop.model.AppStatus;
 import habitPop.model.DataBaseInterface.DatabaseManager;
+import habitPop.model.Habit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.Node;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
 public class NewHabitController {
+    private AppStatus appState;
+    private DatabaseManager databaseManager;
+
+    // ---------------- Schedule checkboxes ----------------
+
+    @FXML
+    private CheckBox mondayCheck;
+
+    @FXML
+    private CheckBox tuesdayCheck;
+
+    @FXML
+    private CheckBox wednesdayCheck;
+
+    @FXML
+    private CheckBox thursdayCheck;
+
+    @FXML
+    private CheckBox fridayCheck;
+
+    @FXML
+    private CheckBox saturdayCheck;
+
+    @FXML
+    private CheckBox sundayCheck;
+
+
+    // ---------------- Time containers ----------------
+
+    @FXML
+    private FlowPane mondayTimes;
+
+    @FXML
+    private FlowPane tuesdayTimes;
+
+    @FXML
+    private FlowPane wednesdayTimes;
+
+    @FXML
+    private FlowPane thursdayTimes;
+
+    @FXML
+    private FlowPane fridayTimes;
+
+    @FXML
+    private FlowPane saturdayTimes;
+
+    @FXML
+    private FlowPane sundayTimes;
+
+
+    // Actual schedule data
+    private final Map<DayOfWeek, List<LocalTime>> timesOfWeek = new HashMap<>();
 
 
     @FXML
@@ -45,46 +112,171 @@ public class NewHabitController {
         int minute = minuteSpinner.getValue();
         String ampm = defaultTime.getValue();
 
-        RadioButton selectedPriority =
-                (RadioButton) priorityGroup.getSelectedToggle();
+        RadioButton selectedPriority = (RadioButton) priorityGroup.getSelectedToggle();
+        int priority = switch (selectedPriority.getText()) {
+            case "Low" -> 1;
+            case "Medium" -> 2;
+            case "High" -> 3;
+            default -> 1;
+        };
 
-        String priority = selectedPriority.getText();
+        Habit habit = new Habit(name, notes, priority,timesOfWeek );
 
 
-        System.out.println("Name: " + name);
-        System.out.println("Location: " + location);
-        System.out.println("Notes: " + notes);
-        System.out.println("Hour: " + hour);
-        System.out.println("Minute: " + minute);
-        System.out.println("AM/PM: " + ampm);
-        System.out.println("Priority: " + priority);
+        boolean successful = databaseManager.addHabitAndLocation(habit,location) ;
+
+
+        if (successful) {
+            appState.addHabit(habit);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        }
+    }
+
+
+//----------- add time
+private LocalTime openTimePicker() {
+
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/habitpop/AddTime.fxml"));
+
+        Parent root = loader.load();
+
+        AddTimeController controller = loader.getController();
+
+        Stage popup = new Stage();
+
+        popup.setTitle("Add Time");
+
+        popup.initModality(Modality.APPLICATION_MODAL);
+        popup.initOwner(habitNameField.getScene().getWindow());
+
+        popup.setScene(new Scene(root));
+        popup.showAndWait();
+
+        return controller.getSelectedTime();
 
     }
+    catch (IOException e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+
+    private void addTime(DayOfWeek day, FlowPane container, LocalTime time) {
+        timesOfWeek.get(day).add(time);
+        addTimeChip(container, day, time);
+    }
+
+
+
+    private void addTimeChip(FlowPane container, DayOfWeek day, LocalTime time) {
+
+        HBox chip = new HBox();
+
+        chip.setSpacing(5);
+        Label timeLabel = new Label(time.format(DateTimeFormatter.ofPattern("h:mm a")));
+        Button removeButton = new Button("×");
+
+
+        removeButton.setOnAction(event -> {
+            // Remove from actual schedule data
+            timesOfWeek.get(day).remove(time);
+            // Remove visible chip
+            container.getChildren().remove(chip);
+        });
+
+
+        chip.getChildren().addAll(timeLabel, removeButton);
+
+        chip.getStyleClass().add("time-chip");
+
+        container.getChildren().add(chip);
+    }
+
+    @FXML
+    private void addMondayTime() {
+        LocalTime time = openTimePicker();
+        if (time == null) { return; }
+
+        addTime(DayOfWeek.MONDAY, mondayTimes, time);
+        mondayCheck.setSelected(true);
+    }
+
+
+    @FXML
+    private void addTuesdayTime() {
+        LocalTime time = openTimePicker();
+        if (time == null) { return; }
+
+
+        addTime(DayOfWeek.TUESDAY, tuesdayTimes, time);
+        tuesdayCheck.setSelected(true);
+    }
+
+
+    @FXML
+    private void addWednesdayTime() {
+        LocalTime time = openTimePicker();
+        if (time == null) { return; }
+
+        addTime(DayOfWeek.WEDNESDAY, wednesdayTimes, time);
+        wednesdayCheck.setSelected(true);
+    }
+
+
+    @FXML
+    private void addThursdayTime() {
+        LocalTime time = openTimePicker();
+        if (time == null) { return; }
+
+
+        addTime(DayOfWeek.THURSDAY, thursdayTimes, time );
+        thursdayCheck.setSelected(true);
+    }
+
+
+    @FXML
+    private void addFridayTime() {
+        LocalTime time = openTimePicker();
+        if (time == null) { return; }
+
+
+        addTime(DayOfWeek.FRIDAY, fridayTimes, time);
+        fridayCheck.setSelected(true);
+    }
+
+
+    @FXML
+    private void addSaturdayTime() {
+        LocalTime time = openTimePicker();
+        if (time == null) { return; }
+
+        addTime(DayOfWeek.SATURDAY, saturdayTimes, time);
+        saturdayCheck.setSelected(true);
+    }
+
+
+    @FXML
+    private void addSundayTime() {
+        LocalTime time = openTimePicker();
+        if (time == null) { return; }
+
+        addTime(DayOfWeek.SUNDAY, sundayTimes, time);
+        sundayCheck.setSelected(true);
+    }
+
+
+
+//----------- on Start
 
 
     @FXML
     private void initialize() {
 
-        defaultHour.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                1,   // minimum
-                12,  // maximum
-                1    // starting value
-        ));
-
-        minuteSpinner.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                        0,   // minimum
-                        59,  // maximum
-                        0    // starting value
-                )
-        );
-
-        defaultTime.getItems().addAll(
-                "AM",
-                "PM"
-        );
-        defaultTime.setValue("AM");
-        defaultTime.setValue("AM");
+        for (DayOfWeek day : DayOfWeek.values()) {
+            timesOfWeek.put(day, new ArrayList<>());
+        }
     }
 
 

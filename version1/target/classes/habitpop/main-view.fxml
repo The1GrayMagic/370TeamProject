@@ -3,22 +3,26 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Pane?>
 
-<VBox xmlns="http://javafx.com/javafx/26"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="habitPop.controller.MainController">
+<VBox xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.MainController">
     <children>
+
         <!-- Permanent navigation bar -->
-        <ToolBar VBox.vgrow="NEVER">
-            <Text text="HabitPop"/>
-            <Button text="Home" onAction="#showHome"/>
-            <Button text="Location" onAction="#showLocation"/>
-            <Button text="Priority" onAction="#showPriority"/>
-            <Button text="Settings" onAction="#showSettings"/>
+        <ToolBar styleClass="main-bar" VBox.vgrow="NEVER">
+            <Text text="HabitPop" styleClass="app-title"/>
+            <Button onAction="#showHome" text="Home" styleClass="nav-button"/>
+            <Button onAction="#showLocation" text="Location" styleClass="nav-button"/>
+            <Button onAction="#showPriority" text="Priority" styleClass="nav-button" />
+
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button onAction="#showSettings" text="Settings" styleClass="settings-button"/>
+
         </ToolBar>
         <!-- Pages are loaded here -->
-        <AnchorPane fx:id="pageContainer" VBox.vgrow="ALWAYS"/>
+        <AnchorPane fx:id="pageContainer" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

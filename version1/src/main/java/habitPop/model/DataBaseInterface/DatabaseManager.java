@@ -410,5 +410,7 @@ return false;
 
     }
 
-
+    public boolean addHabitAndLocation(Habit habit, String location) {
+        return false;
+    }
 }
