@@ -24,6 +24,8 @@ import java.util.*;
 public class NewHabitController {
     private AppStatus appState;
     private DatabaseManager databaseManager;
+    private MainController mainController;
+
 
     // ---------------- Schedule checkboxes ----------------
 
@@ -85,11 +87,12 @@ public class NewHabitController {
     // Actual schedule data
     private final Map<DayOfWeek, List<LocalTime>> timesOfWeek = new HashMap<>();
 
-
     @FXML
     private void cancel(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+      // Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        //stage.close();
+        mainController.showHome();
+
     }
 
     @FXML private void addHabit(ActionEvent event) {
@@ -112,8 +115,9 @@ public class NewHabitController {
 
         if (successful) {
             appState.addHabit(habit);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
+           // Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            //stage.close();
+            mainController.showHome();
         }
     }
 
@@ -258,7 +262,16 @@ public class NewHabitController {
         }
     }
 
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+    public void setAppState(AppStatus appState) {
+        this.appState = appState;
+    }
 
 
-
+    public void setDatabaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
+    }
 }

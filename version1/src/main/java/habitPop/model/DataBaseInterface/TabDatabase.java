@@ -32,7 +32,7 @@ public class TabDatabase {
 
     static final String DELETE_TAB = """
             DELETE FROM tabs
-            WHERE tab_id = ?;
+            WHERE id = ?;
             """;
 
     static final String DELETE_TAB_HABIT = """

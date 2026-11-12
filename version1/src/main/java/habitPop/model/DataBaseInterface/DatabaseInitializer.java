@@ -63,7 +63,7 @@ public class DatabaseInitializer {
 
 
     /*Initialize The database and set predefined structures */
-    static void initialize() {
+     static void initialize() {
 
         try (
                 Connection connection = DatabaseConnection.connectToDB();   // connect to db

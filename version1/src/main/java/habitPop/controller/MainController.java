@@ -15,9 +15,9 @@ public class MainController {
     private final DatabaseManager databaseManager = new DatabaseManager();
     private final AppStatus appState = new AppStatus();
 
+
     @FXML
     private AnchorPane pageContainer;
-
 
     private void loadPage(String fileName) {
 
@@ -35,8 +35,17 @@ public class MainController {
 
                 homeController.setAppState(appState);
                 homeController.setDatabaseManager(databaseManager);
+                homeController.setMainController(this);
 
             }
+
+            if (controller instanceof NewHabitController newHabitController) {
+
+                newHabitController.setAppState(appState);
+                newHabitController.setDatabaseManager(databaseManager);
+                newHabitController.setMainController(this);
+            }
+
 
             if (controller instanceof LocationController locationController) {
 
@@ -67,9 +76,13 @@ public class MainController {
     }
 
     @FXML
-    private void showHome() {
+    void showHome() {
         loadPage("Home.fxml");
     }
+     void showNewHabit() {
+        loadPage("New_habit.fxml");
+    }
+
 
     @FXML
     private void showLocation() {
@@ -84,25 +97,6 @@ public class MainController {
     @FXML
     private void showSettings() {
         loadPage("Settings.fxml");
-    }
-
-
-
-    @FXML
-    private void viewHabit() {
-
-        loadPage("View_habit.fxml");
-
-        /*
-         * TODO later:
-         *
-         * Get which habit the user clicked.
-         *
-         * Get its ID.
-         *
-         * Give that Habit object / ID to the
-         * ViewHabitController.
-         */
     }
 
     @FXML

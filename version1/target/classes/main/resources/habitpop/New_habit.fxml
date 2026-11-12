@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <VBox alignment="TOP_CENTER" prefHeight="935.0" prefWidth="1536.0" styleClass="page-root" stylesheets="@css/base.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.NewHabitController">
 
     <fx:define>
@@ -86,10 +87,15 @@
           </VBox>
 
       </GridPane>
+
+        <Label styleClass="form-heading" text="Schedule" />
+
+        <ScrollPane fitToWidth="true"
+                    VBox.vgrow="ALWAYS"
+                    hbarPolicy="NEVER">
         <!-- Schedule -->
         <VBox maxWidth="700.0" spacing="10.0" styleClass="schedule-section">
 
-            <Label styleClass="form-heading" text="Schedule" />
 
 
             <!-- Monday -->
@@ -176,12 +182,12 @@
             </HBox>
 
         </VBox>
-
+        </ScrollPane>
         <!-- Buttons -->
-        <HBox alignment="CENTER" maxWidth="700.0" spacing="15.0">
+        <HBox alignment="BOTTOM_LEFT" maxWidth="300.0" spacing="15.0">
             <Button cancelButton="true" onAction="#cancel" styleClass="secondary-button" text="Cancel" />
             <Button defaultButton="true" onAction="#addHabit" styleClass="primary-button" text="Add" />
         </HBox>
-
     </VBox>
+
 </VBox>

@@ -1,7 +1,10 @@
 package habitPop.model;
 
+import habitPop.controller.UpcomingController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.util.List;
 
 
 //Hold currently selected IDs, dates, and other shared UI state
@@ -11,14 +14,24 @@ public class AppStatus {
     private final ObservableList<Tab> tabs;
 
     private Habit selectedHabit;
+    private Boolean UpcomingFrist = true;
 
     public AppStatus() {
 
         habits = FXCollections.observableArrayList();
         tabs = FXCollections.observableArrayList();
-
+        UpcomingFrist =true;
         selectedHabit = null;
     }
+
+    public boolean getHomePageUpcoming() {
+        return UpcomingFrist;
+    }
+    public  void SwitchPageUpcoming() {
+         this.UpcomingFrist = !UpcomingFrist;
+    }
+
+
 
     // ---------------- Habits ----------------
 
@@ -45,6 +58,7 @@ public class AppStatus {
     public void removeHabit(Habit habit) {
         habits.remove(habit);
     }
+
 
 
     // ---------------- Tabs ----------------

@@ -17,18 +17,13 @@ public class Tab {
 
     //    ----------------------------------------------------
     // create tab only via name
-    public Tab (String nameNew) { name=nameNew; }
+    public Tab (String nameNew) { this.name=nameNew; }
 
     // create tab if list is already made
-    public Tab (String nameNew, List<Habit> habitListNew) { habitList = habitListNew; }
-
-
-
-
-
-
-
-
+    public Tab(String name, List<Habit> habits) {
+        this.name = name;
+        this.habitList = habits;
+    }
 
 
     public String getName (){ return name; }

@@ -114,63 +114,16 @@
 
         </AnchorPane>
 
-
-        <!-- Filters -->
-        <HBox spacing="8.0"
-              prefHeight="35.0">
-
-            <children>
-
-                <ToggleButton text="Upcoming"
-                              onAction="#showUpcoming">
-
-                    <toggleGroup>
-                        <fx:reference source="habitFilterGroup"/>
-                    </toggleGroup>
-
-                </ToggleButton>
-
-
-                <ToggleButton text="All Habits"
-                              selected="true"
-                              onAction="#showAll">
-
-                    <toggleGroup>
-                        <fx:reference source="habitFilterGroup"/>
-                    </toggleGroup>
-
-                </ToggleButton>
-
-            </children>
+        <VBox spacing="10">
+            <!-- Filters -->
+            <HBox spacing="8.0" prefHeight="35.0">
+                <ToggleButton text="Upcoming" selected="true" onAction="#showUpcoming"/>
+                <ToggleButton text="All Habits"  onAction="#showAll"/>
 
         </HBox>
 
-
-        <!-- Keep table at original size -->
-        <TableView fx:id="habitTable"
-                   prefHeight="350.0"
-                   minHeight="350.0"
-                   maxHeight="350.0"
-                   prefWidth="1920.0"
-                   VBox.vgrow="NEVER">
-
-            <columns>
-
-                <TableColumn fx:id="nameColumn"
-                             prefWidth="900.0"
-                             text="Name"/>
-
-                <TableColumn fx:id="dateTimeColumn"
-                             prefWidth="700.0"
-                             text="Date/Time"/>
-
-                <TableColumn fx:id="completedColumn"
-                             prefWidth="319.0"
-                             text="Completed"/>
-
-            </columns>
-
-        </TableView>
+        <AnchorPane fx:id="homeListContainer" VBox.vgrow="ALWAYS" />
+        </VBox>
 
     </children>
 

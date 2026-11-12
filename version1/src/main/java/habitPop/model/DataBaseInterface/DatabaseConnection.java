@@ -9,7 +9,7 @@ public class DatabaseConnection {
 
     // no need for private, only those in package habitPop.model.DataBaseInterface can access the Strings
     static final String DATA_LOCATION =
-            "jdbc:sqlite:data/habitpop.db";
+            "jdbc:sqlite:version1/data/habitpop.db";
 
     public static Connection connectToDB() throws SQLException {
 

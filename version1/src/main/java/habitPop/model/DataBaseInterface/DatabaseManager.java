@@ -21,6 +21,8 @@ public class DatabaseManager {
 
     public DatabaseManager() {
 
+        DatabaseInitializer.initialize();
+
         habitDatabase = new HabitDatabase();
         scheduleDatabase = new ScheduleDatabase();
         tabDatabase = new TabDatabase();
@@ -254,6 +256,7 @@ public class DatabaseManager {
         if (name == null || name.isBlank() || habit == null) {
             return false;
         }
+
         List<Habit> habits = List.of(habit);
         Tab temp = new Tab(name, habits);
 
