@@ -46,17 +46,26 @@ public class DatabaseManager {
 
         if (!scheduleSuccess) { return false; }
 
-        //if (habit)
-        /*
-         * Later:
-         *
-         * if Habit contains tabs:
-         *
-         * tabDatabase.addHabitTabs(...)
-         */
-
-
         return true;
+    }
+
+    public boolean addHabitAndLocation(Habit habit, String location) {
+        if (habit == null) {
+            return false;
+        }
+
+        // Add habit + its schedule
+        boolean habitSuccess = addHabit(habit);
+
+        if (!habitSuccess) {
+            return false;
+        }
+
+        if (location == null || location.isBlank()) {
+            return true;
+        }
+
+        return addTabName(location, habit);
     }
 
     public Habit getHabit(int id) {
@@ -240,6 +249,18 @@ public class DatabaseManager {
     // TAB
     // =========================================================
 
+    public boolean addTabName(String name, Habit habit) {
+
+        if (name == null || name.isBlank() || habit == null) {
+            return false;
+        }
+        List<Habit> habits = List.of(habit);
+        Tab temp = new Tab(name, habits);
+
+        int tabId = addTab(temp);
+        return tabId != -1;
+    }
+
     public int addTab(Tab tab) {
 
         if (tab == null) {
@@ -410,7 +431,5 @@ return false;
 
     }
 
-    public boolean addHabitAndLocation(Habit habit, String location) {
-        return false;
-    }
+
 }

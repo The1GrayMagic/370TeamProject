@@ -72,45 +72,31 @@ public class NewHabitController {
     @FXML
     private FlowPane sundayTimes;
 
-
-    // Actual schedule data
-    private final Map<DayOfWeek, List<LocalTime>> timesOfWeek = new HashMap<>();
-
-
+    // --- data
     @FXML
     private TextField habitNameField;
     @FXML
     private TextField locationField;
     @FXML
     private TextField notesField;
-
-    @FXML
-    private Spinner<Integer> defaultHour;
-    @FXML
-    private Spinner<Integer> minuteSpinner;
-    @FXML
-    private ComboBox<String> defaultTime;
-
     @FXML
     private ToggleGroup priorityGroup;
 
+    // Actual schedule data
+    private final Map<DayOfWeek, List<LocalTime>> timesOfWeek = new HashMap<>();
+
+
     @FXML
     private void cancel(ActionEvent event) {
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
     @FXML private void addHabit(ActionEvent event) {
 
-
         String name = habitNameField.getText();
         String location = locationField.getText();
         String notes = notesField.getText();
-
-        int hour = defaultHour.getValue();
-        int minute = minuteSpinner.getValue();
-        String ampm = defaultTime.getValue();
 
         RadioButton selectedPriority = (RadioButton) priorityGroup.getSelectedToggle();
         int priority = switch (selectedPriority.getText()) {
@@ -122,9 +108,7 @@ public class NewHabitController {
 
         Habit habit = new Habit(name, notes, priority,timesOfWeek );
 
-
         boolean successful = databaseManager.addHabitAndLocation(habit,location) ;
-
 
         if (successful) {
             appState.addHabit(habit);
@@ -134,8 +118,8 @@ public class NewHabitController {
     }
 
 
-//----------- add time
-private LocalTime openTimePicker() {
+    //----------- add time
+    private LocalTime openTimePicker() {
 
     try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/habitpop/AddTime.fxml"));
@@ -168,8 +152,6 @@ private LocalTime openTimePicker() {
         addTimeChip(container, day, time);
     }
 
-
-
     private void addTimeChip(FlowPane container, DayOfWeek day, LocalTime time) {
 
         HBox chip = new HBox();
@@ -186,11 +168,8 @@ private LocalTime openTimePicker() {
             container.getChildren().remove(chip);
         });
 
-
         chip.getChildren().addAll(timeLabel, removeButton);
-
         chip.getStyleClass().add("time-chip");
-
         container.getChildren().add(chip);
     }
 

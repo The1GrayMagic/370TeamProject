@@ -1,5 +1,7 @@
 package habitPop.controller;
 
+import habitPop.model.AppStatus;
+import habitPop.model.DataBaseInterface.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 public class MainController {
+
+    private final DatabaseManager databaseManager = new DatabaseManager();
+    private final AppStatus appState = new AppStatus();
 
     @FXML
     private AnchorPane pageContainer;
@@ -23,6 +28,29 @@ public class MainController {
                     );
 
             Parent page = loader.load();
+
+            Object controller = loader.getController();
+
+            if (controller instanceof HomeController homeController) {
+
+                homeController.setAppState(appState);
+                homeController.setDatabaseManager(databaseManager);
+
+            }
+
+            if (controller instanceof LocationController locationController) {
+
+                locationController.setAppState(appState);
+                locationController.setDatabaseManager(databaseManager);
+
+            }
+
+            if (controller instanceof PriorityController priorityController) {
+
+                priorityController.setAppState(appState);
+                priorityController.setDatabaseManager(databaseManager);
+
+            }
 
             pageContainer.getChildren().setAll(page);
 

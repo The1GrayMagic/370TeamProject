@@ -1,5 +1,7 @@
 package habitPop.controller;
 
+import habitPop.model.AppStatus;
+import habitPop.model.DataBaseInterface.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +21,9 @@ public class HomeController {
 
     @FXML
     private TableView<?> habitTable;
+    private AppStatus appState;
+    private DatabaseManager databaseManager;
+
 
 
 
@@ -87,9 +92,12 @@ public class HomeController {
          * and double click opens View_habit.fxml.
          */
     }
+    public void setAppState(AppStatus appState) {
+        this.appState = appState;
+    }
 
 
-
-
-
+    public void setDatabaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
+    }
 }
