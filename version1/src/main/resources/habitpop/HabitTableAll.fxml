@@ -6,7 +6,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.skin.TabPaneSkin.TabContentRegion?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="habitPop.controller.HabitALLTableController"
@@ -22,11 +21,10 @@
             <columns>
 
                 <TableColumn fx:id="nameColumn"  text="Name"/>
-                <TableColumn fx:id="priority" text="Priority"/>
-
+                <TableColumn fx:id="priorityColumn" text="Priority"/>
                 <TableColumn fx:id="dateTimeColumn"  text="Date/Time"/>
-
                 <TableColumn fx:id="completedColumn" text="Completed"/>
+
             </columns>
 
 

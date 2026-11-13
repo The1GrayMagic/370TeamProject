@@ -94,8 +94,9 @@ public class AppStatus {
         return selectedHabit;
     }
 
-
     public void setSelectedHabit(Habit selectedHabit) {
         this.selectedHabit = selectedHabit;
     }
+
+
 }

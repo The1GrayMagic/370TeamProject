@@ -104,4 +104,5 @@ public class MainController {
         showHome();
     }
 
+    public void showViewHabit() {loadPage("");}
 }

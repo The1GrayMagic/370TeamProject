@@ -186,7 +186,7 @@
         <!-- Buttons -->
         <HBox alignment="BOTTOM_LEFT" maxWidth="300.0" spacing="15.0">
             <Button cancelButton="true" onAction="#cancel" styleClass="secondary-button" text="Cancel" />
-            <Button defaultButton="true" onAction="#addHabit" styleClass="primary-button" text="Add" />
+            <Button  onAction="#addHabit" styleClass="primary-button" text="Add" />
         </HBox>
     </VBox>
 

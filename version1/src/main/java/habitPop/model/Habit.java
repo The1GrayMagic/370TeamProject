@@ -81,6 +81,7 @@ public class Habit {
     public List<DayStatus> getHistory() {
         return history;
     }
+
     public DayStatus getDay(LocalDate date){
 
         for (DayStatus dateFind : history){

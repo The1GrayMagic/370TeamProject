@@ -94,7 +94,7 @@ public class HomeController {
         if (appState.getHomePageUpcoming()){
             appState.SwitchPageUpcoming();
         }
-        loadSubPage(".fxml");
+        loadSubPage("HabitTableAll.fxml");
     }
 
     @FXML
