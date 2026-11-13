@@ -1,15 +1,16 @@
 package habitPop.model.DataBaseInterface;
 
-import habitPop.model.DayStatus;
-import habitPop.model.Habit;
-import habitPop.model.Tab;
-
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import habitPop.model.DayStatus;
+import habitPop.model.Habit;
+import habitPop.model.Tab;
 
 public class DatabaseManager {
 
@@ -370,21 +371,30 @@ return false;
     // GET HISTORY
     // ---------------------------------------------------------
 
-    public List<DayStatus> getHabitHistory(
-            Habit habit) {
-
-        if (habit == null ||
-                habit.getId() == -1) {
-
-            return null;
+    public List<DayStatus> getHabitHistory(Habit habit) {
+        if (habit == null || habit.getId() == -1) {
+            return new ArrayList<>();
         }
 
-      //  return historyDatabase.getHabitHistory(
-       //         habit.getId()
-       // );
-        return null;
+        try {
+            return historyDatabase.getHabitHistory(habit.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
+    public List<Habit> getAllHabitsWithHistory() {
+        List<Habit> habits = habitDatabase.getHabits();
+        for (Habit habit : habits) {
+            Map<DayOfWeek, List<LocalTime>> schedule =
+            scheduleDatabase.getSchedule(habit.getId());
+            habit.getTimesOfWeek().putAll(schedule);
+            List<DayStatus> history = getHabitHistory(habit);
+            habit.addPreviousHistory(history);
+        }
+    return habits;
+    }
 
     // ---------------------------------------------------------
     // GET ONE HISTORY DAY

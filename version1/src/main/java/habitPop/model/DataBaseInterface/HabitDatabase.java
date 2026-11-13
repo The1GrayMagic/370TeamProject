@@ -1,13 +1,14 @@
 package habitPop.model.DataBaseInterface;
 
-import habitPop.model.Habit;
-
-import java.sql.*;
-import java.time.DayOfWeek;
-import java.time.LocalTime;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import habitPop.model.Habit;
 
 public class HabitDatabase {
 
@@ -154,12 +155,12 @@ public class HabitDatabase {
 
             while (result.next()) {
 
+                int id = result.getInt("id");
                 String name = result.getString("name");
                 String purpose = result.getString("purpose");
-
                 int priority = result.getInt("priority");
-
-                Habit habit = new Habit(name,purpose, priority);
+                Habit habit = new Habit(name, purpose, priority);
+                habit.setId(id);
                 habits.add(habit);
             }
 

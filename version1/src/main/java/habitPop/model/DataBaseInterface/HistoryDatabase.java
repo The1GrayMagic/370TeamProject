@@ -1,7 +1,5 @@
 package habitPop.model.DataBaseInterface;
 
-import habitPop.model.DayStatus;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +9,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import habitPop.model.DayStatus;
 
 
 public class HistoryDatabase {
@@ -163,9 +163,8 @@ public class HistoryDatabase {
 
         }catch (SQLException e) {
         e.printStackTrace();
+        return new ArrayList<>();
     }
-
-    return null;
     }
 
     boolean deleteHistoryDay(int habitId, LocalDate date) {

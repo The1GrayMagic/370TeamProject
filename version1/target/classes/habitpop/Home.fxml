@@ -106,7 +106,6 @@
                 <ProgressIndicator fx:id="completionProgress"
                                    layoutX="1826.0"
                                    layoutY="312.0"
-                                   progress="0.30"
                                    scaleX="5.0"
                                    scaleY="5.0"/>
 
