@@ -7,6 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.geometry.Rectangle2D;
+import javafx.application.Platform;
 
 import java.io.IOException;
 
@@ -18,6 +22,19 @@ public class MainController {
 
     @FXML
     private AnchorPane pageContainer;
+
+    private void setStageToScreenSize() {
+
+        Stage stage = (Stage) pageContainer.getScene().getWindow();
+
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+        stage.setX(screenBounds.getMinX());
+        stage.setY(screenBounds.getMinY());
+
+        stage.setWidth(screenBounds.getWidth());
+        stage.setHeight(screenBounds.getHeight());
+    }
 
     private void loadPage(String fileName) {
 
@@ -75,6 +92,8 @@ public class MainController {
         }
     }
 
+
+
     @FXML
     void showHome() {
         loadPage("Home.fxml");
@@ -104,6 +123,8 @@ public class MainController {
         showHome();
         appState.setDatabaseManager(databaseManager);
         appState.getHabitFormDB();
+
+        Platform.runLater(this::setStageToScreenSize);
 
     }
 
