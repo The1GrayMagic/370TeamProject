@@ -1,6 +1,7 @@
 package habitPop.model;
 
 import habitPop.controller.UpcomingController;
+import habitPop.model.DataBaseInterface.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,6 +13,8 @@ public class AppStatus {
 
     private final ObservableList<Habit> habits;
     private final ObservableList<Tab> tabs;
+    private DatabaseManager databaseManager;
+
 
     private Habit selectedHabit;
     private Boolean UpcomingFrist = true;
@@ -22,6 +25,7 @@ public class AppStatus {
         tabs = FXCollections.observableArrayList();
         UpcomingFrist =true;
         selectedHabit = null;
+
     }
 
     public boolean getHomePageUpcoming() {
@@ -34,6 +38,10 @@ public class AppStatus {
 
 
     // ---------------- Habits ----------------
+
+    public void getHabitFormDB(){
+        habits.setAll(databaseManager.getHabits());
+    }
 
     public ObservableList<Habit> getHabits() {
         return habits;
@@ -98,5 +106,9 @@ public class AppStatus {
         this.selectedHabit = selectedHabit;
     }
 
+
+    public void setDatabaseManager(DatabaseManager databaseManager) {
+        this.databaseManager = databaseManager;
+    }
 
 }

@@ -109,12 +109,13 @@ public class DatabaseManager {
 
     public List<Habit> getHabits() {
 
-        /*
-         * This returns the basic habits.
-         *
-         * You do NOT necessarily need to load
-         * all history here.
-         */
+
+        
+
+
+
+
+
 
         return habitDatabase.getHabits();
     }

@@ -46,8 +46,8 @@ public class HabitALLTableController {
 
     public void setAppState(AppStatus appState) {
         this.appState = appState;
-       // habitTable.setItems(appState.getHabits());
-       // SetupColumes();
+        habitTable.setItems(appState.getHabits());
+        SetupColumes();
     }
     public void setDatabaseManager(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
@@ -110,11 +110,12 @@ public class HabitALLTableController {
                 DayStatus dayStatus = habit.getDay(today);
 
                 boolean completed = dayStatus != null && dayStatus.getCompletions().containsValue(true);
-            
+
                 return new SimpleBooleanProperty(completed);});
     }
     @FXML
     private void initialize() {
+
         Map<DayOfWeek, List<LocalTime>> testSchedule = new HashMap<>();
 
         for (DayOfWeek day : DayOfWeek.values()) {
@@ -151,9 +152,7 @@ public class HabitALLTableController {
                 if (!row.isEmpty() && event.getClickCount() == 2) {
 
                     Habit habit = row.getItem();
-
                     appState.setSelectedHabit(habit);
-
                     mainController.showViewHabit();
                 }
             });

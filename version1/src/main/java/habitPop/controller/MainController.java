@@ -102,6 +102,9 @@ public class MainController {
     @FXML
     private void initialize() {
         showHome();
+        appState.setDatabaseManager(databaseManager);
+        appState.getHabitFormDB();
+
     }
 
     public void showViewHabit() {loadPage("");}

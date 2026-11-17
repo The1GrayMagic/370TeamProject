@@ -224,34 +224,34 @@ private void updateProgressTracker() {
     @FXML
     private void addHabit() {
         mainController.showNewHabit();
-/*
-        try {
+    /*
+            try {
 
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/habitpop/New_habit.fxml")
-            );
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/habitpop/New_habit.fxml")
+                );
 
-            Parent root = loader.load();
+                Parent root = loader.load();
 
-            NewHabitController controller = loader.getController();
-            controller.setAppState(appState);
-            controller.setDatabaseManager(databaseManager);
+                NewHabitController controller = loader.getController();
+                controller.setAppState(appState);
+                controller.setDatabaseManager(databaseManager);
 
 
-            Stage popup = new Stage();
+                Stage popup = new Stage();
 
-            popup.initModality(Modality.APPLICATION_MODAL);
-            popup.setTitle("New Habit");
+                popup.initModality(Modality.APPLICATION_MODAL);
+                popup.setTitle("New Habit");
 
-            popup.initModality(Modality.APPLICATION_MODAL);
+                popup.initModality(Modality.APPLICATION_MODAL);
 
-            popup.initOwner(homeRoot.getScene().getWindow());
-            popup.setScene(new Scene(root));
-            popup.showAndWait();
+                popup.initOwner(homeRoot.getScene().getWindow());
+                popup.setScene(new Scene(root));
+                popup.showAndWait();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
     }
 
     public void setAppState(AppStatus appState) {

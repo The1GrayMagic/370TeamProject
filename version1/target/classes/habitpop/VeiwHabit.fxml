@@ -6,9 +6,143 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="habitPop.controller.ViewHabitController"
+            >
 
-</AnchorPane>
+    <HBox>
+        <VBox>
+            <!-- For current data -->
+
+            <!-- Name -->
+            <HBox>
+                <Label styleClass="form-heading" text="Name:" />
+                <Label fx:id="NameLable" text="Name"/>
+                <TextField fx:id="NameField" visible="false" managed="false"/>
+            </HBox>
+
+            <!-- Locaiton -->
+            <HBox>
+                <Label styleClass="form-heading" text="Name:" />
+                <Label fx:id="locationLabel" text="Name"/>
+                <TextField fx:id="locationField" visible="false" managed="false"/>
+            </HBox>
+
+            <VBox>
+                <
+                <Label fx:id="locationLabel" text="Location"/>
+                <TextField fx:id="locationField" visible="false" managed="false"/>
+            </VBox>
+
+
+            <ScrollPane fitToWidth="true"
+                        VBox.vgrow="ALWAYS"
+                        hbarPolicy="NEVER">
+                <!-- Schedule -->
+                <VBox maxWidth="700.0" spacing="10.0" styleClass="schedule-section">
+
+
+
+                    <!-- Monday -->
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                        <CheckBox fx:id="mondayCheck" text="Monday" />
+
+                        <FlowPane fx:id="mondayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                        <Button onAction="#addMondayTime" text="+ Add time" />
+
+                    </HBox>
+
+
+                    <!-- Tuesday -->
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                        <CheckBox fx:id="tuesdayCheck" text="Tuesday" />
+
+                        <FlowPane fx:id="tuesdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                        <Button onAction="#addTuesdayTime" text="+ Add time" />
+
+                    </HBox>
+
+
+                    <!-- Wednesday -->
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                        <CheckBox fx:id="wednesdayCheck" text="Wednesday" />
+
+                        <FlowPane fx:id="wednesdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                        <Button onAction="#addWednesdayTime" text="+ Add time" />
+
+                    </HBox>
+
+
+                    <!-- Thursday -->
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                        <CheckBox fx:id="thursdayCheck" text="Thursday" />
+
+                        <FlowPane fx:id="thursdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                        <Button onAction="#addThursdayTime" text="+ Add time" />
+
+                    </HBox>
+
+
+                    <!-- Friday -->
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                        <CheckBox fx:id="fridayCheck" text="Friday" />
+
+                        <FlowPane fx:id="fridayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                        <Button onAction="#addFridayTime" text="+ Add time" />
+
+                    </HBox>
+
+
+                    <!-- Saturday -->
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                        <CheckBox fx:id="saturdayCheck" text="Saturday" />
+
+                        <FlowPane fx:id="saturdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                        <Button onAction="#addSaturdayTime" text="+ Add time" />
+
+                    </HBox>
+
+
+                    <!-- Sunday -->
+                    <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+
+                        <CheckBox fx:id="sundayCheck" text="Sunday" />
+
+                        <FlowPane fx:id="sundayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
+
+                        <Button   />
+
+                    </HBox>
+
+                </VBox>
+            </ScrollPane>
+
+
+        </VBox>
+
+        <ScrollPane>
+            <!-- For histroy graph -->
+
+
+
+
+        </ScrollPane>
+
+
+
+
+    </HBox>
+</VBox>

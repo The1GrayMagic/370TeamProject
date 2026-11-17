@@ -92,7 +92,7 @@
 
         <ScrollPane fitToWidth="true"
                     VBox.vgrow="ALWAYS"
-                    hbarPolicy="NEVER">
+                    hbarPolicy="NEVER" vbarPolicy="ALWAYS">
         <!-- Schedule -->
         <VBox maxWidth="700.0" spacing="10.0" styleClass="schedule-section">
 
