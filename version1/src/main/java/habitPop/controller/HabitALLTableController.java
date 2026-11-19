@@ -92,8 +92,12 @@ public class HabitALLTableController {
                     text.append(day).append(": ");
                     for (LocalTime time : times) {
                         //formate time
-                        text.append(time.format(DateTimeFormatter.ofPattern("h:mm a")));
-                        text.append(" ");
+                        if (time == null) {
+                            text.append("All Day");
+                        }else {
+                            text.append(time.format(DateTimeFormatter.ofPattern("h:mm a")));
+                            text.append(" ");
+                        }
                     }
                     text.append("\n");
                 }

@@ -87,6 +87,7 @@ public class NewHabitController {
     // Actual schedule data
     private final Map<DayOfWeek, List<LocalTime>> timesOfWeek = new HashMap<>();
 
+
     @FXML
     private void cancel(ActionEvent event) {
       // Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -108,6 +109,44 @@ public class NewHabitController {
             case "High" -> 3;
             default -> 1;
         };
+
+        if (mondayCheck.isSelected()) {
+            if(timesOfWeek.get(DayOfWeek.MONDAY).isEmpty()){
+                timesOfWeek.get(DayOfWeek.MONDAY).add(null);
+            }
+        }
+
+        if (tuesdayCheck.isSelected()) {
+            if(timesOfWeek.get(DayOfWeek.TUESDAY).isEmpty()){
+                timesOfWeek.get(DayOfWeek.TUESDAY).add(null);
+            }
+        }
+        if (wednesdayCheck.isSelected()) {
+            if(timesOfWeek.get(DayOfWeek.WEDNESDAY).isEmpty()){
+                timesOfWeek.get(DayOfWeek.WEDNESDAY).add(null);
+            }
+        }
+        if (thursdayCheck.isSelected()) {
+            if(timesOfWeek.get(DayOfWeek.THURSDAY).isEmpty()){
+                timesOfWeek.get(DayOfWeek.THURSDAY).add(null);
+            }
+        }
+        if (fridayCheck.isSelected()) {
+            if(timesOfWeek.get(DayOfWeek.FRIDAY).isEmpty()){
+                timesOfWeek.get(DayOfWeek.FRIDAY).add(null);
+            }
+        }
+        if (saturdayCheck.isSelected()) {
+            if(timesOfWeek.get(DayOfWeek.SATURDAY).isEmpty()){
+                timesOfWeek.get(DayOfWeek.SATURDAY).add(null);
+            }
+        }
+        if (sundayCheck.isSelected()) {
+            if(timesOfWeek.get(DayOfWeek.SUNDAY).isEmpty()){
+                timesOfWeek.get(DayOfWeek.SUNDAY).add(null);
+            }
+        }
+
 
         Habit habit = new Habit(name, notes, priority,timesOfWeek );
 
