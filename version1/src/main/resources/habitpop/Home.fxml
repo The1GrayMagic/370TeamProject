@@ -29,8 +29,7 @@
     <children>
 
         <!-- Top dashboard area -->
-        <AnchorPane prefHeight="540.0"
-                    prefWidth="1920.0">
+        <VBox prefHeight="540.0">
 
             <children>
 
@@ -111,7 +110,7 @@
 
             </children>
 
-        </AnchorPane>
+        </VBox>
 
         <VBox spacing="10">
             <!-- Filters -->

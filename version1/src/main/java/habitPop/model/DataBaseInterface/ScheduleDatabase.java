@@ -8,10 +8,7 @@ import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ScheduleDatabase {
@@ -47,9 +44,11 @@ public class ScheduleDatabase {
                     statement.setInt(1,habitId);
 
                     statement.setString(2, day.toString());
-
-                    statement.setString(3, time.toString());
-
+                    if (time ==null) {
+                        statement.setString(3,"All Day");
+                    }else {
+                        statement.setString(3, time.toString());
+                    }
                     statement.addBatch();
                 }
             }
@@ -108,11 +107,14 @@ public class ScheduleDatabase {
             ) {
 
                 while (result.next()) {
-
+                    LocalTime time;
                     DayOfWeek day = DayOfWeek.valueOf(result.getString("day"));
 
-                    LocalTime time = LocalTime.parse(result.getString("time"));
-
+                    if (Objects.equals(result.getString("time"), "All Day")){
+                         time = null;
+                    }else {
+                         time = LocalTime.parse(result.getString("time"));
+                    }
                     if (!timesOfWeek.containsKey(day)) {
                         timesOfWeek.put(day, new ArrayList<>());
                     }
