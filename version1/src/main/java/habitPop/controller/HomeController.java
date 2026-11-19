@@ -87,6 +87,7 @@ public class HomeController {
     }
 
 
+
 private void updateProgressTracker() {
 
     if (appState == null || databaseManager == null
@@ -95,6 +96,7 @@ private void updateProgressTracker() {
         return;
     }
 
+    // Retrieve habits, schedules, and completion history
     List<Habit> habits = databaseManager.getAllHabitsWithHistory();
 
     if (habits == null) {
@@ -103,103 +105,127 @@ private void updateProgressTracker() {
 
     appState.setHabits(habits);
 
+    // Clear previous grid
     weeklyProgressGrid.getChildren().clear();
+
+    // Configure grid spacing
+    weeklyProgressGrid.getColumnConstraints().clear();
+    weeklyProgressGrid.getRowConstraints().clear();
+    weeklyProgressGrid.setGridLinesVisible(false);
+    weeklyProgressGrid.setHgap(5);
+    weeklyProgressGrid.setVgap(5);
 
     LocalDate today = LocalDate.now();
 
+    // Find Monday of the current week
+    LocalDate currentMonday = today.with(
+        java.time.temporal.TemporalAdjusters
+            .previousOrSame(java.time.DayOfWeek.MONDAY)
+    );
+
+    // Start 11 weeks before current week
+    LocalDate startDate = currentMonday.minusWeeks(11);
+
     double todayProgress = 0;
 
-    // Display the previous 7 days
-    for (int day = 0; day < 7; day++) {
+    // Generate 12 weeks (84 days)
+    for (int week = 0; week < 12; week++) {
 
-        LocalDate date = today.minusDays(6 - day);
+        for (int day = 0; day < 7; day++) {
 
-        int totalTasks = 0;
-        int completedTasks = 0;
+            LocalDate date = startDate.plusDays(week * 7L + day);
 
-        // Check every habit
-        for (Habit habit : habits) {
+            Region square = new Region();
 
-            List<java.time.LocalTime> times =
-                    habit.getTimesOfWeek().get(date.getDayOfWeek());
+            square.setMinSize(16, 16);
+            square.setPrefSize(16, 16);
+            square.setMaxSize(16, 16);
 
-            if (times == null) {
+            // Hide future dates
+            if (date.isAfter(today)) {
+                square.setStyle("-fx-background-color: transparent;");
+                weeklyProgressGrid.add(square, week, day);
                 continue;
             }
 
-            for (java.time.LocalTime time : times) {
+            int totalTasks = 0;
+            int completedTasks = 0;
 
-                totalTasks++;
+            // Calculate completion for this date
+            for (Habit habit : habits) {
 
-                // Find completion history for this date
-                List<DayStatus> history = habit.getHistory();
+                List<java.time.LocalTime> times =
+                    habit.getTimesOfWeek().get(date.getDayOfWeek());
 
-                if (history == null) {
+                if (times == null) {
                     continue;
                 }
 
-                for (DayStatus status : history) {
+                for (java.time.LocalTime time : times) {
 
-                    if (status.getDate().equals(date)) {
+                    totalTasks++;
 
-                        Boolean completed =
+                    // Find history for this date
+                    for (DayStatus status : habit.getHistory()) {
+
+                        if (status.getDate().equals(date)) {
+
+                            Boolean completed =
                                 status.getCompletions().get(time);
 
-                        if (Boolean.TRUE.equals(completed)) {
-                            completedTasks++;
-                        }
+                            if (Boolean.TRUE.equals(completed)) {
+                                completedTasks++;
+                            }
 
-                        break;
+                            break;
+                        }
                     }
                 }
             }
-        }
 
-        // Calculate daily percentage
-        double percentage = totalTasks == 0
+            // Calculate completion percentage
+            double percentage = totalTasks == 0
                 ? 0
                 : (double) completedTasks / totalTasks;
 
-        // Today's percentage is used for the circle
-        if (date.equals(today)) {
-            todayProgress = percentage;
-        }
-
-        // Convert percentage into 7 graph levels
-        int filledCells = (int) Math.round(percentage * 7);
-
-        // Create the weekly graph column
-        for (int row = 0; row < 7; row++) {
-
-            Region cell = new Region();
-
-            cell.setMinSize(20, 20);
-            cell.setPrefSize(100, 40);
-
-            if (row >= 7 - filledCells && totalTasks > 0) {
-                cell.setStyle(
-                    "-fx-background-color: #66BB6A;" +
-                    "-fx-background-radius: 5;"
-                );
-            } else {
-                cell.setStyle(
-                    "-fx-background-color: #EEEEEE;" +
-                    "-fx-background-radius: 5;"
-                );
+            if (date.equals(today)) {
+                todayProgress = percentage;
             }
 
-            Tooltip.install(cell, new Tooltip(
-                    date + "\n" +
-                    completedTasks + " / " + totalTasks +
-                    " tasks completed\n" +
-                    Math.round(percentage * 100) + "%"
+            // Choose square color
+            String color;
+
+            if (totalTasks == 0 || percentage == 0) {
+                color = "#EEEEEE";
+            } else if (percentage <= 0.25) {
+                color = "#D9F0E2";
+            } else if (percentage <= 0.50) {
+                color = "#A8DDBB";
+            } else if (percentage <= 0.75) {
+                color = "#63BE8B";
+            } else {
+                color = "#238B57";
+            }
+
+            square.setStyle(
+                "-fx-background-color: " + color + ";" +
+                "-fx-background-radius: 4;"
+            );
+
+            // Display information when hovering
+            Tooltip.install(square, new Tooltip(
+                date + "\n" +
+                completedTasks + " / " + totalTasks +
+                " habits completed\n" +
+                Math.round(percentage * 100) + "%"
             ));
 
-            weeklyProgressGrid.add(cell, day, row);
+            // Add square to grid
+            weeklyProgressGrid.add(square, week, day);
         }
     }
 
-    // Update the circular progress indicator
+    // Update today's circular progress indicator
     completionProgress.setProgress(todayProgress);
 }
 
