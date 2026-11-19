@@ -2,22 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ProgressIndicator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox fx:id="homeRoot"
-      prefHeight="950.0"
-      prefWidth="1920.0"
+      spacing="15"
+      fillWidth="true"
       xmlns="http://javafx.com/javafx/26"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="habitPop.controller.HomeController">
@@ -28,100 +27,113 @@
 
     <children>
 
-        <!-- Top dashboard area -->
-        <AnchorPane prefHeight="540.0"
-                    prefWidth="1920.0">
+        <!-- HEADER -->
+        <HBox alignment="CENTER_LEFT" spacing="10">
 
-            <children>
-
-                <Text layoutX="14.0"
-                      layoutY="42.0"
-                      text="Welcome Back!">
-
+            <VBox spacing="5">
+                <Text text="Welcome Back!">
                     <font>
                         <Font size="26.0"/>
                     </font>
-
                 </Text>
 
-                <Text layoutX="14.0"
-                      layoutY="65.0"
-                      text="Small steps make big progress. Keep it up!"/>
+                <Text text="Small steps make big progress. Keep it up!"/>
+            </VBox>
 
+            <Region HBox.hgrow="ALWAYS"/>
 
-                <Button layoutX="1772.0"
-                        layoutY="14.0"
-                        prefHeight="47.0"
-                        prefWidth="135.0"
-                        text="+ New Habit"
-                        onAction="#addHabit"/>
-
-
-                <!-- Large weekly progress graph -->
-                <GridPane fx:id="weeklyProgressGrid"
-                          gridLinesVisible="true"
-                          layoutX="0.0"
-                          layoutY="146.0"
-                          prefHeight="372.0"
-                          prefWidth="1733.0">
-
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                    </columnConstraints>
-
-                    <rowConstraints>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                    </rowConstraints>
-
-                </GridPane>
-
-
-                <!-- Percentage completed circle -->
-                <ProgressIndicator fx:id="completionProgress"
-                                   layoutX="1826.0"
-                                   layoutY="312.0"
-                                   scaleX="5.0"
-                                   scaleY="5.0"/>
-
-            </children>
-
-        </AnchorPane>
-
-        <VBox spacing="10">
-            <!-- Filters -->
-            <HBox spacing="8.0" prefHeight="35.0">
-                <ToggleButton text="Upcoming" selected="true" onAction="#showUpcoming"/>
-                <ToggleButton text="All Habits"  onAction="#showAll"/>
+            <Button text="+ New Habit"
+                    onAction="#addHabit"/>
 
         </HBox>
 
-        <AnchorPane fx:id="homeListContainer" VBox.vgrow="ALWAYS" />
+
+        <!-- WEEKLY PROGRESS SECTION -->
+        <GridPane fx:id="weeklySection"
+                  minHeight="250"
+                  maxWidth="Infinity"
+                  VBox.vgrow="ALWAYS">
+
+            <columnConstraints>
+
+                <!-- Weekly Grid: 80% -->
+                <ColumnConstraints percentWidth="80"
+                                   hgrow="ALWAYS"/>
+
+                <!-- Progress Tracker: 20% -->
+                <ColumnConstraints percentWidth="20"
+                                   hgrow="ALWAYS"/>
+
+            </columnConstraints>
+
+
+            <!-- LEFT: WEEKLY GRID -->
+            <GridPane fx:id="weeklyProgressGrid"
+                      gridLinesVisible="true"
+                      maxWidth="Infinity"
+                      maxHeight="Infinity"
+                      GridPane.columnIndex="0"
+                      GridPane.hgrow="ALWAYS">
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="14.2857"/>
+                    <ColumnConstraints percentWidth="14.2857"/>
+                    <ColumnConstraints percentWidth="14.2857"/>
+                    <ColumnConstraints percentWidth="14.2857"/>
+                    <ColumnConstraints percentWidth="14.2857"/>
+                    <ColumnConstraints percentWidth="14.2857"/>
+                    <ColumnConstraints percentWidth="14.2857"/>
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                    <RowConstraints vgrow="ALWAYS"/>
+                </rowConstraints>
+
+            </GridPane>
+
+
+            <!-- RIGHT: COMPLETION PROGRESS -->
+            <VBox alignment="CENTER"
+                  maxWidth="Infinity"
+                  maxHeight="Infinity"
+                  GridPane.columnIndex="1"
+                  GridPane.hgrow="ALWAYS">
+
+                <ProgressIndicator fx:id="completionProgress"
+                                   scaleX="5.0"
+                                   scaleY="5.0"/>
+
+            </VBox>
+
+        </GridPane>
+
+
+        <!-- HABIT LIST -->
+        <VBox spacing="10" VBox.vgrow="ALWAYS">
+
+            <!-- FILTERS -->
+            <HBox spacing="8">
+
+                <ToggleButton text="Upcoming"
+                              selected="true"
+                              toggleGroup="$habitFilterGroup"
+                              onAction="#showUpcoming"/>
+
+                <ToggleButton text="All Habits"
+                              toggleGroup="$habitFilterGroup"
+                              onAction="#showAll"/>
+
+            </HBox>
+
+            <AnchorPane fx:id="homeListContainer"
+                        VBox.vgrow="ALWAYS"/>
+
         </VBox>
 
     </children>
