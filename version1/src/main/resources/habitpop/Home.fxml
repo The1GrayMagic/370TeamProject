@@ -15,99 +15,108 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+
 <VBox fx:id="homeRoot"
       prefHeight="950.0"
       prefWidth="1920.0"
       xmlns="http://javafx.com/javafx/26"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="habitPop.controller.HomeController">
+      fx:controller="habitPop.controller.HomeController" style="-fx-padding: 20 30 20 30;">
 
     <fx:define>
         <ToggleGroup fx:id="habitFilterGroup"/>
     </fx:define>
 
     <children>
-
         <!-- Top dashboard area -->
         <VBox prefHeight="540.0">
 
             <children>
+                <HBox alignment="CENTER_LEFT" spacing="20" >
+                    <VBox spacing="5">
+                        <Text text="Welcome Back!">
+                            <font>
+                                <Font size="26"/>
+                            </font>
+                        </Text>
 
-                <Text layoutX="14.0"
-                      layoutY="42.0"
-                      text="Welcome Back!">
+                        <Text text="Small steps make big progress. Keep it up!"/>
+                    </VBox>
 
-                    <font>
-                        <Font size="26.0"/>
-                    </font>
+                    <Region HBox.hgrow="ALWAYS"/>
 
-                </Text>
-
-                <Text layoutX="14.0"
-                      layoutY="65.0"
-                      text="Small steps make big progress. Keep it up!"/>
-
-
-                <Button layoutX="1772.0"
-                        layoutY="14.0"
-                        prefHeight="47.0"
-                        prefWidth="135.0"
-                        text="+ New Habit"
-                        onAction="#addHabit"/>
-
-
-                <!-- Large weekly progress graph -->
-                <GridPane fx:id="weeklyProgressGrid"
-                          gridLinesVisible="true"
-                          layoutX="0.0"
-                          layoutY="146.0"
-                          prefHeight="372.0"
-                          prefWidth="1733.0">
-
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES"
-                                           prefWidth="100.0"/>
-                    </columnConstraints>
-
-                    <rowConstraints>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                        <RowConstraints vgrow="SOMETIMES"
-                                        prefHeight="30.0"/>
-                    </rowConstraints>
-
-                </GridPane>
+                    <Button prefHeight="47.0"
+                            prefWidth="135.0"
+                            text="+ New Habit"
+                            onAction="#addHabit"/>
+                </HBox>
+                <HBox spacing="40" alignment="CENTER" prefHeight="350">
+                    <VBox spacing="12"
+                          HBox.hgrow="ALWAYS"
+                          maxWidth="Infinity" >
+                        <!-- Large weekly progress graph -->
+                        <Text text="Weekly Progress">
+                            <font>
+                                <Font size="18"/>
+                            </font>
+                        </Text>
 
 
-                <!-- Percentage completed circle -->
-                <ProgressIndicator fx:id="completionProgress"
-                                   layoutX="1826.0"
-                                   layoutY="312.0"
-                                   scaleX="5.0"
-                                   scaleY="5.0"/>
+                        <GridPane fx:id="weeklyProgressGrid"
+                                  hgap="8"
+                                  vgap="8"
+                                  prefWidth="900"
+                                  prefHeight="260"
+                                  maxWidth="Infinity"
+                                  VBox.vgrow="ALWAYS">
 
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="14.2857" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="14.2857" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="14.2857" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="14.2857" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="14.2857" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="14.2857" hgrow="ALWAYS"/>
+                                <ColumnConstraints percentWidth="14.2858" hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <rowConstraints>
+                                <RowConstraints percentHeight="14.2857" vgrow="ALWAYS"/>
+                                <RowConstraints percentHeight="14.2857" vgrow="ALWAYS"/>
+                                <RowConstraints percentHeight="14.2857" vgrow="ALWAYS"/>
+                                <RowConstraints percentHeight="14.2857" vgrow="ALWAYS"/>
+                                <RowConstraints percentHeight="14.2857" vgrow="ALWAYS"/>
+                                <RowConstraints percentHeight="14.2857" vgrow="ALWAYS"/>
+                                <RowConstraints percentHeight="14.2858" vgrow="ALWAYS"/>
+                            </rowConstraints>
+
+                        </GridPane>
+                    </VBox>
+
+                    <!-- Completion progress -->
+                    <VBox alignment="BOTTOM_CENTER"
+                          spacing="100"
+                          prefWidth="260"
+                          minWidth="220">
+                        <!-- Percentage completed circle -->
+                        <ProgressIndicator fx:id="completionProgress"
+                                           progress="0"
+                                           prefWidth="110"
+                                           prefHeight="110"
+                                           scaleX="5.0"
+                                           scaleY="5.0"/>
+
+                        <Text text="Daily Completion">
+                            <font>
+                                <Font size="16"/>
+                            </font>
+                        </Text>
+
+                    </VBox>
+
+                </HBox>
             </children>
 
         </VBox>

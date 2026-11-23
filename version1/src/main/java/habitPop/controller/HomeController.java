@@ -136,10 +136,14 @@ private void updateProgressTracker() {
             LocalDate date = startDate.plusDays(week * 7L + day);
 
             Region square = new Region();
+            square.setMinSize(8, 8);
+            square.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-            square.setMinSize(16, 16);
-            square.setPrefSize(16, 16);
-            square.setMaxSize(16, 16);
+            GridPane.setHgrow(square, javafx.scene.layout.Priority.ALWAYS);
+            GridPane.setVgrow(square, javafx.scene.layout.Priority.ALWAYS);
+           // square.setMinSize(25, 25);
+           // square.setPrefSize(25, 25);
+           // square.setMaxSize(25, 25);
 
             // Hide future dates
             if (date.isAfter(today)) {
