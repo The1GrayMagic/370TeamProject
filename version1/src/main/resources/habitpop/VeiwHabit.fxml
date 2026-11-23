@@ -9,7 +9,7 @@
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="habitPop.controller.ViewHabitController"
-            >
+            stylesheets="@css/base.css">
 
     <HBox>
         <VBox>

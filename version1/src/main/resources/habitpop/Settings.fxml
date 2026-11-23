@@ -17,7 +17,8 @@
       spacing="20.0"
       xmlns="http://javafx.com/javafx/26"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="habitPop.controller.SettingsController">
+      fx:controller="habitPop.controller.SettingsController"
+      stylesheets="@css/base.css">
 
     <fx:define>
         <ToggleGroup fx:id="themeGroup"/>

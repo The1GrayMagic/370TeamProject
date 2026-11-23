@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.Pane?>
 
-<VBox xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.MainController">
+<VBox xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.MainController" stylesheets="@css/base.css">
     <children>
 
         <!-- Permanent navigation bar -->

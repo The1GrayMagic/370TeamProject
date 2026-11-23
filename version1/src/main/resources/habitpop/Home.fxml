@@ -19,7 +19,9 @@
       fillWidth="true"
       xmlns="http://javafx.com/javafx/26"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="habitPop.controller.HomeController">
+      fx:controller="habitPop.controller.HomeController"
+      stylesheets="@css/base.css"
+styleClass="home-page">
 
     <fx:define>
         <ToggleGroup fx:id="habitFilterGroup"/>
