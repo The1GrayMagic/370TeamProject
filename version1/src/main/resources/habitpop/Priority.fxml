@@ -5,71 +5,103 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="habitPop.controller.LocationController" stylesheets="@css/base.css">
    <children>
-      <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
-         <tabs>
-            <Tab text="high">
-               <content>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                     <children>
-                        <CheckBox mnemonicParsing="false" text="Habit 1" />
-                        <CheckBox layoutX="79.0" layoutY="10.0" mnemonicParsing="false" text="Habit 2" />
-                        <CheckBox layoutX="79.0" layoutY="32.0" mnemonicParsing="false" text="Habit 3" />
-                        <CheckBox layoutX="79.0" layoutY="32.0" mnemonicParsing="false" text="Habit 4" />
-                        <CheckBox layoutX="79.0" layoutY="54.0" mnemonicParsing="false" text="Habit 5" />
-                        <CheckBox layoutX="79.0" layoutY="98.0" mnemonicParsing="false" text="Habit 6" />
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </VBox>
-               </content>
-            </Tab>
-         </tabs>
-      </TabPane>
-      <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
-         <tabs>
-            <Tab text="Med">
-               <content>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                     <children>
-                        <CheckBox mnemonicParsing="false" text="Habit 1" />
-                        <CheckBox layoutX="79.0" layoutY="10.0" mnemonicParsing="false" text="Habit 2" />
-                        <CheckBox layoutX="79.0" layoutY="32.0" mnemonicParsing="false" text="Habit 3" />
-                        <CheckBox layoutX="79.0" layoutY="32.0" mnemonicParsing="false" text="Habit 4" />
-                        <CheckBox layoutX="79.0" layoutY="54.0" mnemonicParsing="false" text="Habit 5" />
-                        <CheckBox layoutX="79.0" layoutY="98.0" mnemonicParsing="false" text="Habit 6" />
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </VBox>
-               </content>
-            </Tab>
-         </tabs>
-      </TabPane>
-      <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: black;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane styleClass="location-tabs" tabClosingPolicy="UNAVAILABLE" maxWidth="Infinity" maxHeight="Infinity">
          <tabs>
             <Tab text="Low">
                <content>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-                     <children>
-                        <CheckBox mnemonicParsing="false" text="Habit 1" />
-                        <CheckBox layoutX="79.0" layoutY="10.0" mnemonicParsing="false" text="Habit 2" />
-                        <CheckBox layoutX="79.0" layoutY="32.0" mnemonicParsing="false" text="Habit 3" />
-                        <CheckBox layoutX="79.0" layoutY="32.0" mnemonicParsing="false" text="Habit 4" />
-                        <CheckBox layoutX="79.0" layoutY="54.0" mnemonicParsing="false" text="Habit 5" />
-                        <CheckBox layoutX="79.0" layoutY="98.0" mnemonicParsing="false" text="Habit 6" />
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </VBox>
+                  <ScrollPane fitToWidth="true"
+                              fitToHeight="false"
+                              hbarPolicy="NEVER"
+                              vbarPolicy="AS_NEEDED">
+                     <content>
+                        <VBox alignment="TOP_LEFT"
+                              spacing="12.0"
+                              styleClass="habit-list">
+                           <children>
+                              <CheckBox text="Habit 1" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 2" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 3" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 4" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 5" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 6" styleClass="habit-checkbox"/>
+                           </children>
+                           <padding>
+                              <Insets top="15.0" right="10.0"
+                                      bottom="10.0" left="15.0"/>
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </content>
             </Tab>
          </tabs>
       </TabPane>
+      <TabPane styleClass="location-tabs" tabClosingPolicy="UNAVAILABLE" maxWidth="Infinity" maxHeight="Infinity">
+         <tabs>
+            <Tab text="Med">
+               <content>
+                  <ScrollPane fitToWidth="true"
+                              fitToHeight="false"
+                              hbarPolicy="NEVER"
+                              vbarPolicy="AS_NEEDED">
+                     <content>
+                        <VBox alignment="TOP_LEFT"
+                              spacing="12.0"
+                              styleClass="habit-list">
+                           <children>
+                              <CheckBox text="Habit 1" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 2" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 3" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 4" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 5" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 6" styleClass="habit-checkbox"/>
+                           </children>
+                           <padding>
+                              <Insets top="15.0" right="10.0"
+                                      bottom="10.0" left="15.0"/>
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <TabPane styleClass="location-tabs" tabClosingPolicy="UNAVAILABLE" maxWidth="Infinity" maxHeight="Infinity">
+         <tabs>
+            <Tab text="High">
+               <content>
+                  <ScrollPane fitToWidth="true"
+                              fitToHeight="false"
+                              hbarPolicy="NEVER"
+                              vbarPolicy="AS_NEEDED">
+                     <content>
+                        <VBox alignment="TOP_LEFT"
+                              spacing="12.0"
+                              styleClass="habit-list">
+                           <children>
+                              <CheckBox text="Habit 1" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 2" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 3" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 4" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 5" styleClass="habit-checkbox"/>
+                              <CheckBox text="Habit 6" styleClass="habit-checkbox"/>
+                           </children>
+                           <padding>
+                              <Insets top="15.0" right="10.0"
+                                      bottom="10.0" left="15.0"/>
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+
    </children>
 </VBox>

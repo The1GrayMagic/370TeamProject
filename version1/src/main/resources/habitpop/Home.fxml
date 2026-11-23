@@ -71,11 +71,14 @@ styleClass="home-page">
 
             <!-- LEFT: WEEKLY GRID -->
             <GridPane fx:id="weeklyProgressGrid"
+                      hgap="8"
+                      vgap="8"
                       gridLinesVisible="true"
                       maxWidth="Infinity"
                       maxHeight="Infinity"
                       GridPane.columnIndex="0"
-                      GridPane.hgrow="ALWAYS">
+                      GridPane.hgrow="ALWAYS"
+            >
 
                 <columnConstraints>
                     <ColumnConstraints percentWidth="14.2857"/>
