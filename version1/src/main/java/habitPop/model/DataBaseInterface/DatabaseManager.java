@@ -421,14 +421,25 @@ return false;
 
 
 
-    public boolean updateHabitHistoryDay(Habit habit, DayStatus day) {
+    
+public boolean updateHabitHistoryDay(Habit habit, DayStatus day) {
 
-        if (habit == null || day == null || habit.getId() == -1) {
-            return false;
-        }
+    if (habit == null || day == null || habit.getId() == -1) {
         return false;
-        //return historyDatabase.updateHabitHistoryDay(habit.getId(), day);
     }
+
+    try {
+        return historyDatabase.updateHabitHistoryDay(
+            habit.getId(),
+            day
+        );
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
 
     public boolean deleteHistoryDay(Habit habit, LocalDate date) {
 
