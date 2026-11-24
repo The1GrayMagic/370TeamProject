@@ -120,7 +120,7 @@ styleClass="home-page">
 
 
         <!-- HABIT LIST -->
-        <VBox spacing="10" VBox.vgrow="ALWAYS">
+        <VBox spacing="10" VBox.vgrow="ALWAYS" >
 
             <!-- FILTERS -->
             <HBox spacing="8">

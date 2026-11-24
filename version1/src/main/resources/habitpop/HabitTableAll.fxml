@@ -10,7 +10,8 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="habitPop.controller.HabitALLTableController"
       prefHeight="400.0" prefWidth="600.0"
-      stylesheets="@css/base.css">
+      stylesheets="@css/base.css"
+      styleClass="habit-table">
 
     <!-- Keep table at original size -->
     <TableView fx:id="habitTable"
