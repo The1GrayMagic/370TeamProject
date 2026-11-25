@@ -50,7 +50,8 @@
             <Label text="Theme:"/>
 
             <ToggleButton fx:id="lightThemeButton"
-                          text="Light">
+                          text="Light"
+                          selected="true">
 
                 <toggleGroup>
                     <fx:reference source="themeGroup"/>
@@ -60,16 +61,6 @@
 
             <ToggleButton fx:id="darkThemeButton"
                           text="Dark">
-
-                <toggleGroup>
-                    <fx:reference source="themeGroup"/>
-                </toggleGroup>
-
-            </ToggleButton>
-
-            <ToggleButton fx:id="systemThemeButton"
-                          text="System"
-                          selected="true">
 
                 <toggleGroup>
                     <fx:reference source="themeGroup"/>
