@@ -327,7 +327,7 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 14px;
     -fx-border-color: transparent;
-    -fx-padding: 8px 12px;
+    -fx-padding: 8px 12px 0px 12px;
 }
 
 /* Selected cell text */
@@ -354,4 +354,66 @@
 
 .habit-table .scroll-bar .thumb:hover {
     -fx-background-color: #4F8C70;
+}
+
+/* Time picker container */
+.time-picker {
+    -fx-background-color: #E7F1E8;
+    -fx-background-radius: 12px;
+    -fx-border-color: #D5E4D8;
+    -fx-border-radius: 12px;
+    -fx-padding: 12px;
+}
+
+/* Hour and minute spinners */
+.time-spinner {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #A8C6B0;
+    -fx-border-radius: 8px;
+}
+
+/* Spinner text */
+.time-spinner .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #315E50;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER;
+}
+
+/* Spinner arrows */
+.time-spinner .increment-arrow-button,
+.time-spinner .decrement-arrow-button {
+    -fx-background-color: #E7F1E8;
+}
+
+.time-spinner .increment-arrow-button:hover,
+.time-spinner .decrement-arrow-button:hover {
+    -fx-background-color: #D5E8DA;
+}
+
+/* Colon between hour and minute */
+.time-separator {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #315E50;
+}
+
+/* AM / PM dropdown */
+.time-ampm {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-color: #A8C6B0;
+    -fx-border-radius: 8px;
+    -fx-font-size: 16px;
+}
+
+.time-ampm .list-cell {
+    -fx-text-fill: #315E50;
+    -fx-background-color: white;
+}
+
+.time-ampm .list-cell:hover {
+    -fx-background-color: #E7F1E8;
 }

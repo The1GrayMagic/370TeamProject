@@ -94,7 +94,7 @@
                     VBox.vgrow="ALWAYS"
                     hbarPolicy="NEVER" vbarPolicy="ALWAYS">
         <!-- Schedule -->
-        <VBox maxWidth="700.0" spacing="10.0" styleClass="schedule-section">
+        <VBox maxWidth="Infinity" spacing="10.0" styleClass="schedule-section">
 
 
 

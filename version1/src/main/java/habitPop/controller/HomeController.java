@@ -107,7 +107,7 @@ private void updateProgressTracker() {
 
     LocalDate today = LocalDate.now();
 
-    double todayProgress = 0;
+    double todayProgress =0;
 
     // Display the previous 7 days
     for (int day = 0; day < 7; day++) {

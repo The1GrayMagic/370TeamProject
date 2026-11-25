@@ -18,14 +18,27 @@
 
     <Label text="Add time" styleClass="form-heading"/>
 
-    <HBox alignment="CENTER" spacing="10.0">
-        <Label text="Hour:"/>
-        <Spinner fx:id="hourSpinner" editable="true" prefWidth="80.0"/>
+    <HBox alignment="CENTER"
+          spacing="8.0"
+          styleClass="time-picker">
 
-        <Label text="Minute:"/>
-        <Spinner fx:id="minuteSpinner" editable="true" prefWidth="80.0"/>
+        <Spinner fx:id="hourSpinner"
+                 editable="true"
+                 prefWidth="75.0"
+                 styleClass="time-spinner"/>
 
-        <ComboBox fx:id="ampmCombo" prefWidth="90.0"/>
+        <Label text=":"
+               styleClass="time-separator"/>
+
+        <Spinner fx:id="minuteSpinner"
+                 editable="true"
+                 prefWidth="75.0"
+                 styleClass="time-spinner"/>
+
+        <ComboBox fx:id="ampmCombo"
+                  prefWidth="85.0"
+                  styleClass="time-ampm"/>
+
     </HBox>
 
     <HBox alignment="CENTER_RIGHT" spacing="10.0">

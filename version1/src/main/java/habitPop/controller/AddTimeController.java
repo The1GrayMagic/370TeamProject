@@ -7,6 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.time.LocalTime;
 
@@ -43,6 +44,30 @@ public class AddTimeController {
                         0
                 ));
 
+        minuteSpinner.getValueFactory().setConverter(
+                new StringConverter<Integer>() {
+
+                    @Override
+                    public String toString(Integer value) {
+                        if (value == null) {
+                            return "00";
+                        }
+
+                        return String.format("%02d", value);
+                    }
+
+                    @Override
+                    public Integer fromString(String text) {
+                        if (text == null || text.isEmpty()) {
+                            return 0;
+                        }
+
+                        return Integer.parseInt(text);
+                    }
+                }
+        );
+
+
         ampmCombo.getItems().addAll("AM", "PM");
 
         ampmCombo.setValue("AM");
@@ -69,6 +94,7 @@ public class AddTimeController {
         selectedTime = LocalTime.of(hour, minute);
         close(event);
     }
+
 
 
     @FXML
