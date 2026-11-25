@@ -14,6 +14,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
@@ -49,7 +50,6 @@ public class NewHabitController {
 
     @FXML
     private CheckBox sundayCheck;
-
 
     // ---------------- Time containers ----------------
 
@@ -158,6 +158,91 @@ public class NewHabitController {
             //stage.close();
             mainController.showHome();
         }
+    }
+
+    // ---------entire box clickable
+    @FXML
+    private void toggleMonday(MouseEvent event) {
+
+        // Don't toggle if the user clicked the checkbox itself
+        if (event.getTarget() instanceof CheckBox ||
+                event.getTarget() instanceof Button) {
+            return;
+        }
+
+        mondayCheck.setSelected(!mondayCheck.isSelected());
+    }
+
+    @FXML
+    private void toggleTuesday(MouseEvent event) {
+
+        // Don't toggle if the user clicked the checkbox itself
+        if (event.getTarget() instanceof CheckBox ||
+                event.getTarget() instanceof Button) {
+            return;
+        }
+
+        tuesdayCheck.setSelected(!tuesdayCheck.isSelected());
+    }
+
+    @FXML
+    private void toggleWednesday(MouseEvent event) {
+
+        // Don't toggle if the user clicked the checkbox itself
+        if (event.getTarget() instanceof CheckBox ||
+                event.getTarget() instanceof Button) {
+            return;
+        }
+
+        wednesdayCheck.setSelected(!wednesdayCheck.isSelected());
+    }
+
+    @FXML
+    private void toggleThursday(MouseEvent event) {
+
+        // Don't toggle if the user clicked the checkbox itself
+        if (event.getTarget() instanceof CheckBox ||
+                event.getTarget() instanceof Button) {
+            return;
+        }
+
+        thursdayCheck.setSelected(!thursdayCheck.isSelected());
+    }
+
+    @FXML
+    private void toggleFriday(MouseEvent event) {
+
+        // Don't toggle if the user clicked the checkbox itself
+        if (event.getTarget() instanceof CheckBox ||
+                event.getTarget() instanceof Button) {
+            return;
+        }
+
+        fridayCheck.setSelected(!fridayCheck.isSelected());
+    }
+
+    @FXML
+    private void toggleSaturday(MouseEvent event) {
+
+        // Don't toggle if the user clicked the checkbox itself
+        if (event.getTarget() instanceof CheckBox ||
+                event.getTarget() instanceof Button) {
+            return;
+        }
+
+        saturdayCheck.setSelected(!saturdayCheck.isSelected());
+    }
+
+    @FXML
+    private void toggleSunday(MouseEvent event) {
+
+        // Don't toggle if the user clicked the checkbox itself
+        if (event.getTarget() instanceof CheckBox ||
+                event.getTarget() instanceof Button) {
+            return;
+        }
+
+        sundayCheck.setSelected(!sundayCheck.isSelected());
     }
 
 

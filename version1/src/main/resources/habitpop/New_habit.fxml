@@ -99,9 +99,9 @@
 
 
             <!-- Monday -->
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row" onMouseClicked="#toggleMonday">
 
-                <CheckBox fx:id="mondayCheck" text="Monday" />
+                <CheckBox fx:id="mondayCheck" text="Monday" styleClass="habit-checkbox"/>
 
                 <FlowPane fx:id="mondayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 
@@ -111,9 +111,9 @@
 
 
             <!-- Tuesday -->
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row" onMouseClicked="#toggleTuesday">
 
-                <CheckBox fx:id="tuesdayCheck" text="Tuesday" />
+                <CheckBox fx:id="tuesdayCheck" text="Tuesday" styleClass="habit-checkbox" />
 
                 <FlowPane fx:id="tuesdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 
@@ -123,9 +123,9 @@
 
 
             <!-- Wednesday -->
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row" onMouseClicked="#toggleWednesday">
 
-                <CheckBox fx:id="wednesdayCheck" text="Wednesday" />
+                <CheckBox fx:id="wednesdayCheck" text="Wednesday" styleClass="habit-checkbox"/>
 
                 <FlowPane fx:id="wednesdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 
@@ -135,9 +135,9 @@
 
 
             <!-- Thursday -->
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row" onMouseClicked="#toggleThursday">
 
-                <CheckBox fx:id="thursdayCheck" text="Thursday" />
+                <CheckBox fx:id="thursdayCheck" text="Thursday" styleClass="habit-checkbox"/>
 
                 <FlowPane fx:id="thursdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 
@@ -147,9 +147,9 @@
 
 
             <!-- Friday -->
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row" onMouseClicked="#toggleFriday">
 
-                <CheckBox fx:id="fridayCheck" text="Friday" />
+                <CheckBox fx:id="fridayCheck" text="Friday" styleClass="habit-checkbox"/>
 
                 <FlowPane fx:id="fridayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 
@@ -159,9 +159,9 @@
 
 
             <!-- Saturday -->
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row" onMouseClicked="#toggleSaturday">
 
-                <CheckBox fx:id="saturdayCheck" text="Saturday" />
+                <CheckBox fx:id="saturdayCheck" text="Saturday" styleClass="habit-checkbox"/>
 
                 <FlowPane fx:id="saturdayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 
@@ -171,9 +171,9 @@
 
 
             <!-- Sunday -->
-            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row">
+            <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="schedule-row" onMouseClicked="#toggleSunday">
 
-                <CheckBox fx:id="sundayCheck" text="Sunday" />
+                <CheckBox fx:id="sundayCheck" text="Sunday" styleClass="habit-checkbox"/>
 
                 <FlowPane fx:id="sundayTimes" hgap="8.0" prefWrapLength="350.0" vgap="8.0" HBox.hgrow="ALWAYS" />
 

@@ -118,10 +118,7 @@
     -fx-border-radius: 12px;
 }
 
-.schedule-row .check-box {
-    -fx-font-size: 16px;
-    -fx-text-fill: #315E50;
-}
+
 
 .schedule-row .button {
     -fx-font-size: 14px;
